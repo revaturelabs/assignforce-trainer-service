@@ -27,10 +27,10 @@ public class Trainer {
 	private int id;
 
 	@Column(name = "Firstname")
-	private String firstname;
+	private String firstName;
 
 	@Column(name = "Lastname")
-	private String lastname;
+	private String lastName;
 
 	@Column(name = "isActive")
 	private Boolean isActive;
@@ -63,13 +63,13 @@ public class Trainer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Trainer(int id, String firstname, String lastname, Boolean isActive, int preferredLocation,
+	public Trainer(int id, String firstName, String lastName, Boolean isActive, int preferredLocation,
 			Set<Unavailability> unavailabilities, String email, Set<SkillIdHolder> skills, int address,
 			Set<Cert> certs) {
 		super();
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.isActive = isActive;
 		this.preferredLocation = preferredLocation;
 		this.unavailabilities = unavailabilities;
@@ -87,20 +87,20 @@ public class Trainer {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Boolean getIsActive() {
