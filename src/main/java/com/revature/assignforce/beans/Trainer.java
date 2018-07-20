@@ -36,7 +36,7 @@ public class Trainer {
 	private Boolean isActive;
 
 	@Column(name = "preferredLocation")
-	private int preferredLocation;
+	private Integer preferredLocation;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "TRAINER_ID")
@@ -65,7 +65,7 @@ public class Trainer {
 		super();
 	}
 
-	public Trainer(int id, String firstName, String lastName, Boolean isActive, int preferredLocation,
+	public Trainer(int id, String firstName, String lastName, Boolean isActive, Integer preferredLocation,
 			Set<Unavailability> unavailabilities, String email, Set<SkillIdHolder> skills, Set<Cert> certifications,
 			String resume, String linkedInUrl) {
 		super();
@@ -114,11 +114,11 @@ public class Trainer {
 		this.isActive = isActive;
 	}
 
-	public int getPreferredLocation() {
+	public Integer getPreferredLocation() {
 		return preferredLocation;
 	}
 
-	public void setPreferredLocation(int preferredLocation) {
+	public void setPreferredLocation(Integer preferredLocation) {
 		this.preferredLocation = preferredLocation;
 	}
 
@@ -170,8 +170,6 @@ public class Trainer {
 		this.linkedInUrl = linkedInUrl;
 	}
 
-	
-	
-	
+		
 
 }
