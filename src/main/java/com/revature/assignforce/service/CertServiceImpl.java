@@ -40,7 +40,7 @@ public class CertServiceImpl implements CertService {
 
 	@Override
 	public void delete(int id) {
-		certRepo.deleteById(id);;
+		certRepo.deleteById(id);
 	}
 
 }

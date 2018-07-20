@@ -63,7 +63,6 @@ public class Trainer {
 
 	public Trainer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Trainer(int id, String firstName, String lastName, Boolean isActive, int preferredLocation,
