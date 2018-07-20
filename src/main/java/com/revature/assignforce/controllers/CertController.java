@@ -34,29 +34,29 @@ public class CertController {
 	public ResponseEntity<Cert> getById(@PathVariable int id) {
 		Optional<Cert> c = service.findById(id);
 		if (!c.isPresent())
-			return new ResponseEntity<Cert>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Cert>(c.get(), HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(c.get(), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<Cert> add(@RequestBody Cert c) {
 		c = service.create(c);
 		if (c == null)
-			return new ResponseEntity<Cert>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Cert>(c, HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
 
 	@PutMapping
 	public ResponseEntity<Cert> update(@RequestBody Cert c) {
 		c = service.update(c);
 		if (c == null)
-			return new ResponseEntity<Cert>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Cert>(c, HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<Cert> delete(@PathVariable int id) {
 		service.delete(id);
-		return new ResponseEntity<Cert>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

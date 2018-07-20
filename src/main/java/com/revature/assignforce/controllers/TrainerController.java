@@ -36,8 +36,8 @@ public class TrainerController {
 	public ResponseEntity<Trainer> getById(@PathVariable int id) {
 		Optional<Trainer> t = trainerService.findById(id);
 		if (!t.isPresent())
-			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Trainer>(t.get(), HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(t.get(), HttpStatus.OK);
 	}
 
 	// findby email
@@ -45,8 +45,8 @@ public class TrainerController {
 	public ResponseEntity<Trainer> getByEmail(@PathVariable String email) {
 		Optional<Trainer> t = trainerService.findByEmail(email);
 		if (!t.isPresent())
-			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Trainer>(t.get(), HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(t.get(), HttpStatus.OK);
 	}
 
 	// create
@@ -54,8 +54,8 @@ public class TrainerController {
 	public ResponseEntity<Trainer> add(@RequestBody Trainer t) {
 		t = trainerService.create(t);
 		if (t == null)
-			return new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Trainer>(t, HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(t, HttpStatus.CREATED);
 	}
 
 	// update
@@ -63,14 +63,14 @@ public class TrainerController {
 	public ResponseEntity<Trainer> update(@RequestBody Trainer t) {
 		t = trainerService.update(t);
 		if (t == null)
-			return new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Trainer>(t, HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(t, HttpStatus.CREATED);
 	}
 
 	// delete
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<Trainer> delete(@PathVariable int id) {
 		trainerService.delete(id);
-		return new ResponseEntity<Trainer>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
