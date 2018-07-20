@@ -49,12 +49,15 @@ public class Trainer {
 	@JoinTable(name = "Trainer_Skills", joinColumns = @JoinColumn(name = "Trainer_ID"), inverseJoinColumns = @JoinColumn(name = "Skills_Id"))
 	private Set<SkillIdHolder> skills;
 
-	@Column(name = "Address_Id")
-	private int address;
-
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "CERT_TRAINERS", joinColumns = @JoinColumn(name = "TRAINER_ID"), inverseJoinColumns = @JoinColumn(name = "CERT_ID"))
-	private Set<Cert> certs;
+	private Set<Cert> certifications;
+	
+	@Column(name = "RESUME") 
+	private String resume;
+	
+	@Column(name = "LINKED_IN_URL")
+	private String linkedInUrl;
 
 	// To add: resume/ resume id in bitbucket
 
@@ -64,8 +67,8 @@ public class Trainer {
 	}
 
 	public Trainer(int id, String firstName, String lastName, Boolean isActive, int preferredLocation,
-			Set<Unavailability> unavailabilities, String email, Set<SkillIdHolder> skills, int address,
-			Set<Cert> certs) {
+			Set<Unavailability> unavailabilities, String email, Set<SkillIdHolder> skills, Set<Cert> certifications,
+			String resume, String linkedInUrl) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -75,8 +78,9 @@ public class Trainer {
 		this.unavailabilities = unavailabilities;
 		this.email = email;
 		this.skills = skills;
-		this.address = address;
-		this.certs = certs;
+		this.certifications = certifications;
+		this.resume = resume;
+		this.linkedInUrl = linkedInUrl;
 	}
 
 	public int getId() {
@@ -143,20 +147,32 @@ public class Trainer {
 		this.skills = skills;
 	}
 
-	public int getAddress() {
-		return address;
+	public Set<Cert> getCertifications() {
+		return certifications;
 	}
 
-	public void setAddress(int address) {
-		this.address = address;
+	public void setCertifications(Set<Cert> certifications) {
+		this.certifications = certifications;
 	}
 
-	public Set<Cert> getCerts() {
-		return certs;
+	public String getResume() {
+		return resume;
 	}
 
-	public void setCerts(Set<Cert> certs) {
-		this.certs = certs;
+	public void setResume(String resume) {
+		this.resume = resume;
 	}
+
+	public String getLinkedInUrl() {
+		return linkedInUrl;
+	}
+
+	public void setLinkedInUrl(String linkedInUrl) {
+		this.linkedInUrl = linkedInUrl;
+	}
+
+	
+	
+	
 
 }
