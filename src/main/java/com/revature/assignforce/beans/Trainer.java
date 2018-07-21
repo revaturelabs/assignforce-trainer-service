@@ -43,7 +43,7 @@ public class Trainer {
 	private Integer preferredLocation;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "TRAINER_ID")
+	@JoinColumn(name = "UNAVAILABLEID")
 	private Set<Unavailability> unavailabilities;
 
 	@Column(name = "email")
