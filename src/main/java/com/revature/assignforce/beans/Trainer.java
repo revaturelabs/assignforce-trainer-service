@@ -16,7 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+
 @Entity
+@Component
 @Table(name = "TRAINER")
 public class Trainer {
 
