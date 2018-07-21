@@ -46,7 +46,7 @@ public class Trainer {
 	private String email;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "Trainer_Skills", joinColumns = @JoinColumn(name = "Trainer_ID"), inverseJoinColumns = @JoinColumn(name = "Skills_Id"))
+	@JoinTable(name = "Trainer_Skills", joinColumns = @JoinColumn(name = "Trainer_ID"), inverseJoinColumns = @JoinColumn(name = "SKILL_ID"))
 	private Set<SkillIdHolder> skills;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
