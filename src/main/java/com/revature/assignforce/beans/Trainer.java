@@ -51,14 +51,14 @@ public class Trainer {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Trainer_Skills", 
-		joinColumns = { @JoinColumn(name = "TRAINER_ID") }, 
-		inverseJoinColumns = {@JoinColumn(name = "SKILL_ID")})
+		joinColumns =  @JoinColumn(name = "TRAINER_ID") , 
+		inverseJoinColumns = @JoinColumn(name = "SKILL_ID") )
 	private Set<SkillIdHolder> skills;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinTable(name = "CERT_TRAINERS", 
-		joinColumns = { @JoinColumn(name = "TRAINER_ID") }, 
-		inverseJoinColumns = { @JoinColumn(name = "CERT_ID") })
+		joinColumns = @JoinColumn(name = "TRAINER_ID"), 
+		inverseJoinColumns = @JoinColumn(name = "CERT_ID") )
 	private Set<Cert> certifications;
 	
 	@Column(name = "RESUME") 
