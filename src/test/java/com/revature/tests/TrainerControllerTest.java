@@ -49,8 +49,6 @@ public class TrainerControllerTest {
 	}
 	
 	@Autowired
-	private TrainerService trainerService;
-	@Autowired
 	private TrainerRepo trainerRepository;
 	@Autowired
 	private TrainerController trainerController;

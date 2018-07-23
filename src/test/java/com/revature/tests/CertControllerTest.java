@@ -43,9 +43,6 @@ public class CertControllerTest {
 		}
 	}
 	
-	
-	@Autowired
-	private CertService certService;
 	@Autowired
 	private CertRepo certRepository;
 	@Autowired
