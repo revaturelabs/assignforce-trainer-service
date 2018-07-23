@@ -62,8 +62,8 @@ public class CertServiceImplTest {
 	public void findByIdTest() {
 		Cert c1 = new Cert(3, "AWS");
 		Optional<Cert> op1 = Optional.ofNullable(c1);
-		Mockito.when(certRepository.findById(1)).thenReturn(op1);
-		Optional<Cert> opTest = certService.findById(1);
+		Mockito.when(certRepository.findById(3)).thenReturn(op1);
+		Optional<Cert> opTest = certService.findById(3);
 		assertTrue(opTest.get().getCertId() == 3);
 	}
 	
