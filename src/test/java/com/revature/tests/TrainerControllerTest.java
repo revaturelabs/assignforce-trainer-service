@@ -3,7 +3,6 @@ package com.revature.tests;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,8 +50,6 @@ public class TrainerControllerTest {
 		}
 	}
 
-	@Autowired
-	private TrainerService trainerService;
 	@Autowired
 	private TrainerRepo trainerRepository;
 	@Autowired
