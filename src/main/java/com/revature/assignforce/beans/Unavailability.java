@@ -1,6 +1,6 @@
 package com.revature.assignforce.beans;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +24,10 @@ public class Unavailability {
 	private int id;
 
 	@Column(name = "START_DATE")
-	private Timestamp startDate;
+	private Date startDate;
 
 	@Column(name = "END_DATE")
-	private Timestamp endDate;
+	private Date endDate;
 
 	@Column(name = "DESCRIPTION")
 	private String description;
@@ -36,7 +36,7 @@ public class Unavailability {
 		super();
 	}
 
-	public Unavailability(int id, Timestamp startDate, Timestamp endDate, String description) {
+	public Unavailability(int id, Date startDate, Date endDate, String description) {
 		super();
 		this.id = id;
 		this.startDate = startDate;
@@ -52,19 +52,19 @@ public class Unavailability {
 		this.id = id;
 	}
 
-	public Timestamp getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public Timestamp getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
