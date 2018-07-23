@@ -2,6 +2,7 @@ package com.revature.tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
 
@@ -41,8 +42,8 @@ public class TrainerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, new Timestamp(10), new Timestamp(30), "Family matter");
-		Unavailability u2 = new Unavailability(1, new Timestamp(1), new Timestamp(5), "Medical check up");
+		Unavailability u1 = new Unavailability(1, new Date(192933L), new Date(30L), "Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(10000L), new Date(20000L), "Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
 		SkillIdHolder s3 = new SkillIdHolder(10);
@@ -99,8 +100,8 @@ public class TrainerTest {
 	
 	@Test
 	public void getSetUnavailabilityTest() {
-		Unavailability u1 = new Unavailability(1, new Timestamp(10), new Timestamp(30), "Family matter");
-		Unavailability u2 = new Unavailability(1, new Timestamp(1), new Timestamp(5), "Medical check up");
+		Unavailability u1 = new Unavailability(1, new Date(11111L), new Date(22222L), "Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(44444L), new Date(943293L), "Medical check up");
 		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
 		unavailabilitySet.add(u1);
 		unavailabilitySet.add(u2);
