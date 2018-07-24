@@ -3,7 +3,6 @@ package com.revature.tests;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,8 +57,6 @@ public class TrainerControllerTest {
 	}
 
 	@Autowired
-	private TrainerService trainerService;
-	@Autowired
 	private TrainerRepo trainerRepository;
 	@Autowired
 	private TrainerController trainerController;
@@ -69,9 +66,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -104,9 +101,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -141,9 +138,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -178,9 +175,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -208,9 +205,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -237,9 +234,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
@@ -269,9 +266,9 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, Date.valueOf("04-17-2016"), Date.valueOf("06-20-2016"),
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		Unavailability u2 = new Unavailability(1, Date.valueOf("03-20-2017"), Date.valueOf("05-15-2018"),
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
 				"Medical check up");
 		SkillIdHolder s1 = new SkillIdHolder(7);
 		SkillIdHolder s2 = new SkillIdHolder(8);
