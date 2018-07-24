@@ -49,7 +49,7 @@ public class Trainer {
 	@Column(name = "email")
 	private String email;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Trainer_Skills", 
 		joinColumns =  @JoinColumn(name = "TRAINER_ID") , 
 		inverseJoinColumns = @JoinColumn(name = "SKILL_ID") )
