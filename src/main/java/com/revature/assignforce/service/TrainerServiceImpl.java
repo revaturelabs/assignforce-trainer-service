@@ -44,7 +44,7 @@ public class TrainerServiceImpl implements TrainerService {
 	public Trainer update(Trainer t) {
 		Set<SkillIdHolder> skills = t.getSkills();
 		if (skills == null) {
-			skills = new HashSet<SkillIdHolder>();
+			skills = new HashSet<>();
 		}
 
 		for (SkillIdHolder s : skills) {
@@ -57,7 +57,7 @@ public class TrainerServiceImpl implements TrainerService {
 	public Trainer create(Trainer t) {
 		Set<SkillIdHolder> skills = t.getSkills();
 		if (skills == null) {
-			skills = new HashSet<SkillIdHolder>();
+			skills = new HashSet<>();
 		}
 
 		for (SkillIdHolder s : skills) {
@@ -72,7 +72,7 @@ public class TrainerServiceImpl implements TrainerService {
 		if (!t.isPresent()) {
 			return;
 		}
-		t.get().setSkills(new HashSet<SkillIdHolder>());
+		t.get().setSkills(new HashSet<>());
 		trainerRepo.save(t.get());
 		trainerRepo.deleteById(id);
 	}
