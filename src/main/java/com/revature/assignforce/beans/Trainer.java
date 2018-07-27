@@ -15,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -30,9 +33,13 @@ public class Trainer {
 	@Column(name = "TRAINER_ID")
 	private int id;
 
+	@NotNull(message="firstName cannot be null")
+	@Size(min = 1, max = 128)
 	@Column(name = "Firstname")
 	private String firstName;
 
+	
+	@Size(min = 1, max = 128)
 	@Column(name = "Lastname")
 	private String lastName;
 
@@ -46,6 +53,8 @@ public class Trainer {
 	@JoinColumn(name = "TRAINER_ID")
 	private Set<Unavailability> unavailabilities;
 
+	@Email(message = "email is not in valid format")
+	@NotNull(message ="email must not be null")
 	@Column(name = "email")
 	private String email;
 
