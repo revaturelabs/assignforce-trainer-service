@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -41,6 +42,9 @@ public class Trainer {
 
 	@Column(name = "preferredLocation")
 	private Integer preferredLocation;
+	
+	@Transient
+	private Location location;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "TRAINER_ID")
