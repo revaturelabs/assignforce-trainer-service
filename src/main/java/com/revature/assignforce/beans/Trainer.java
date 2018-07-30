@@ -133,6 +133,14 @@ public class Trainer {
 	public void setPreferredLocation(Integer preferredLocation) {
 		this.preferredLocation = preferredLocation;
 	}
+	
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
 	public Set<Unavailability> getUnavailabilities() {
 		return unavailabilities;
