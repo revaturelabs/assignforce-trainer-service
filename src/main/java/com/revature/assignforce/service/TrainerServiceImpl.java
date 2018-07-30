@@ -1,5 +1,6 @@
 package com.revature.assignforce.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.assignforce.beans.Location;
+import com.revature.assignforce.beans.Skill;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.clients.LocationClient;
+import com.revature.assignforce.clients.SkillClient;
 import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
 
@@ -29,11 +32,17 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	@Autowired
 	private LocationClient locationClient;
+	
+	@Autowired
+	private SkillClient skillClient;
 
 	@Override
 	public List<Trainer> getAll() {
 		List<Trainer> trainers = trainerRepo.findAll();
-		trainers.forEach((trainer) -> getTrainerLocation(trainer));
+		trainers.forEach((trainer) -> {
+			getTrainerLocation(trainer);
+			getTrainerSkills(trainer);
+		});
 		return trainers;
 	}
 
@@ -42,6 +51,7 @@ public class TrainerServiceImpl implements TrainerService {
 		Optional<Trainer> trainer = trainerRepo.findById(id);
 		if(trainer.isPresent()) {
 			getTrainerLocation(trainer.get());
+			getTrainerSkills(trainer.get());
 		}
 		return trainer;
 	}
@@ -51,6 +61,7 @@ public class TrainerServiceImpl implements TrainerService {
 		Optional<Trainer> trainer = trainerRepo.findByEmail(email);
 		if(trainer.isPresent()) {
 			getTrainerLocation(trainer.get());
+			getTrainerSkills(trainer.get());
 		}
 		return trainer;
 	}
@@ -95,5 +106,11 @@ public class TrainerServiceImpl implements TrainerService {
 	private void getTrainerLocation(Trainer trainer) {
 		Location location = locationClient.getLocation(trainer.getPreferredLocation());
 		trainer.setLocation(location);
+	}
+	
+	private void getTrainerSkills(Trainer trainer) {
+		List<Skill> skills = new ArrayList<Skill>();
+		trainer.getSkills().forEach((skillIdHolder) -> skills.add(skillClient.getSkill(skillIdHolder.getSkillId())));
+		trainer.setSkillCollection(skills);
 	}
 }

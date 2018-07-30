@@ -2,7 +2,6 @@ package com.revature.assignforce.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.revature.assignforce.beans.Location;
 
@@ -10,5 +9,5 @@ import com.revature.assignforce.beans.Location;
 public interface LocationClient {
 
 	@GetMapping("/{id}")
-	public Location getLocation(@PathVariable(name="id") int id);
+	public Location getLocation(int id);
 }

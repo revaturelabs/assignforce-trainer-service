@@ -1,5 +1,6 @@
 package com.revature.assignforce.beans;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,6 +59,9 @@ public class Trainer {
 		joinColumns =  @JoinColumn(name = "TRAINER_ID") , 
 		inverseJoinColumns = @JoinColumn(name = "SKILL_ID") )
 	private Set<SkillIdHolder> skills;
+	
+	@Transient
+	private List<Skill> skillCollection;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinTable(name = "CERT_TRAINERS", 
@@ -164,6 +168,14 @@ public class Trainer {
 
 	public void setSkills(Set<SkillIdHolder> skills) {
 		this.skills = skills;
+	}
+	
+	public List<Skill> getSkillCollection() {
+		return skillCollection;
+	}
+	
+	public void setSkillCollection(List<Skill> skillCollection) {
+		this.skillCollection = skillCollection;
 	}
 
 	public Set<Cert> getCertifications() {
