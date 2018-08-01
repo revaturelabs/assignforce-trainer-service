@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.revature.assignforce.beans.Skill;
 
-@FeignClient("skill-service/skill/")
+@FeignClient(name = "skill-service/skill/", fallback = SkillClientFallback.class)
 public interface SkillClient {
 
 	@GetMapping("/{id}")

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.revature.assignforce.beans.Location;
 
-@FeignClient("location-service/location/")
+@FeignClient(name = "location-service/location/", fallback = LocationClientFallback.class)
 public interface LocationClient {
 
 	@GetMapping("/{id}")
