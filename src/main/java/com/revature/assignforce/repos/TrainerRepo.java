@@ -1,4 +1,5 @@
 package com.revature.assignforce.repos;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ public interface TrainerRepo extends JpaRepository<Trainer, Integer>{
 
 	Optional<Trainer> findByEmail(String email);
 
+	List<Trainer> findByPreferredLocation(Integer preferredLocation);	
 }

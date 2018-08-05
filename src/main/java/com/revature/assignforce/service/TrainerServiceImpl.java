@@ -102,6 +102,11 @@ public class TrainerServiceImpl implements TrainerService {
 		trainerRepo.save(t.get());
 		trainerRepo.deleteById(id);
 	}
+	
+	@Override
+	public List<Trainer> findByPreferredLocation(Integer preferredLocation) {
+		return trainerRepo.findByPreferredLocation(preferredLocation);
+	}
 
 	private void getTrainerLocation(Trainer trainer) {
 		Location location = locationClient.getLocation(trainer.getPreferredLocation());
