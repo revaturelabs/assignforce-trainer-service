@@ -16,6 +16,7 @@ import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.commands.FindLocationCommand;
 import com.revature.assignforce.commands.FindSkillsCommand;
+import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
 
@@ -34,6 +35,9 @@ public class TrainerServiceImpl implements TrainerService {
 	
 	@Autowired
 	private FindSkillsCommand findSkillsCommand;
+	
+	@Autowired
+	private TrainerMessenger trainerMessenger;
 
 	@Override
 	public List<Trainer> getAll() {
@@ -87,6 +91,7 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		t.get().setSkills(new HashSet<>());
 		trainerRepo.save(t.get());
+		trainerMessenger.sendDeletionMessage(id);
 		trainerRepo.deleteById(id);
 	}
 	
