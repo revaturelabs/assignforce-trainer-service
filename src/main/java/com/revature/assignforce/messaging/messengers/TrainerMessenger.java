@@ -13,7 +13,7 @@ public class TrainerMessenger {
 	@Value("${spring.rabbitmq.exchange:assignforce}")
 	private String exchange;
 	
-	@Value("${spring.rabbitmq.location-routing-delete:assignforce.trainer.delete")
+	@Value("${spring.rabbitmq.trainer-routing-delete:assignforce.trainer.delete")
 	private String routingKey;
 	
 	@Inject

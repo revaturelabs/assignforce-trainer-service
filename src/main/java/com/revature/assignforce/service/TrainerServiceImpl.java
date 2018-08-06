@@ -60,6 +60,8 @@ public class TrainerServiceImpl implements TrainerService {
 		if (skills == null) {
 			skills = new HashSet<>();
 		}
+		
+		t = validateReferences(t);
 
 		for (SkillIdHolder s : skills) {
 			skillRepo.save(s);
