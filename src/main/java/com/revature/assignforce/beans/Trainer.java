@@ -43,9 +43,6 @@ public class Trainer {
 
 	@Column(name = "preferredLocation")
 	private Integer preferredLocation;
-	
-	@Transient
-	private Location location;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "TRAINER_ID")
@@ -59,9 +56,6 @@ public class Trainer {
 		joinColumns =  @JoinColumn(name = "TRAINER_ID") , 
 		inverseJoinColumns = @JoinColumn(name = "SKILL_ID") )
 	private Set<SkillIdHolder> skills;
-	
-	@Transient
-	private List<Skill> skillCollection;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinTable(name = "CERT_TRAINERS", 
@@ -137,14 +131,6 @@ public class Trainer {
 	public void setPreferredLocation(Integer preferredLocation) {
 		this.preferredLocation = preferredLocation;
 	}
-	
-	public Location getLocation() {
-		return location;
-	}
-	
-	public void setLocation(Location location) {
-		this.location = location;
-	}
 
 	public Set<Unavailability> getUnavailabilities() {
 		return unavailabilities;
@@ -168,14 +154,6 @@ public class Trainer {
 
 	public void setSkills(Set<SkillIdHolder> skills) {
 		this.skills = skills;
-	}
-	
-	public List<Skill> getSkillCollection() {
-		return skillCollection;
-	}
-	
-	public void setSkillCollection(List<Skill> skillCollection) {
-		this.skillCollection = skillCollection;
 	}
 
 	public Set<Cert> getCertifications() {

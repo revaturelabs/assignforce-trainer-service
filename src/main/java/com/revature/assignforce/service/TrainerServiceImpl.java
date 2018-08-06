@@ -5,18 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.assignforce.beans.Location;
-import com.revature.assignforce.beans.Skill;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.clients.LocationClient;
-import com.revature.assignforce.clients.SkillClient;
+import com.revature.assignforce.commands.FindLocationCommand;
+import com.revature.assignforce.commands.FindSkillsCommand;
 import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
 
@@ -31,39 +30,24 @@ public class TrainerServiceImpl implements TrainerService {
 	private SkillRepository skillRepo;
 	
 	@Autowired
-	private LocationClient locationClient;
+	private FindLocationCommand findLocationCommand;
 	
 	@Autowired
-	private SkillClient skillClient;
+	private FindSkillsCommand findSkillsCommand;
 
 	@Override
 	public List<Trainer> getAll() {
-		List<Trainer> trainers = trainerRepo.findAll();
-		trainers.forEach((trainer) -> {
-			getTrainerLocation(trainer);
-			getTrainerSkills(trainer);
-		});
-		return trainers;
+		return trainerRepo.findAll();
 	}
 
 	@Override
 	public Optional<Trainer> findById(int id) {
-		Optional<Trainer> trainer = trainerRepo.findById(id);
-		if(trainer.isPresent()) {
-			getTrainerLocation(trainer.get());
-			getTrainerSkills(trainer.get());
-		}
-		return trainer;
+		return trainerRepo.findById(id);
 	}
 
 	@Override
 	public Optional<Trainer> findByEmail(String email) {
-		Optional<Trainer> trainer = trainerRepo.findByEmail(email);
-		if(trainer.isPresent()) {
-			getTrainerLocation(trainer.get());
-			getTrainerSkills(trainer.get());
-		}
-		return trainer;
+		return trainerRepo.findByEmail(email);
 	}
 
 	@Override
@@ -84,7 +68,10 @@ public class TrainerServiceImpl implements TrainerService {
 		Set<SkillIdHolder> skills = t.getSkills();
 		if (skills == null) {
 			skills = new HashSet<>();
+			t.setSkills(skills);
 		}
+		
+		t = validateReferences(t);
 
 		for (SkillIdHolder s : skills) {
 			skillRepo.save(s);
@@ -108,14 +95,9 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerRepo.findByPreferredLocation(preferredLocation);
 	}
 
-	private void getTrainerLocation(Trainer trainer) {
-		Location location = locationClient.getLocation(trainer.getPreferredLocation());
-		trainer.setLocation(location);
-	}
-	
-	private void getTrainerSkills(Trainer trainer) {
-		List<Skill> skills = new ArrayList<Skill>();
-		trainer.getSkills().forEach((skillIdHolder) -> skills.add(skillClient.getSkill(skillIdHolder.getSkillId())));
-		trainer.setSkillCollection(skills);
+	private Trainer validateReferences(Trainer trainer) {
+		trainer = findLocationCommand.findLocation(trainer);
+		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
+		return trainer;
 	}
 }
