@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>AssignForceTrainerService</name>
-	<description>Trainer Servicefor AssignForce</description>
+	<description>Trainer Service for AssignForce</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,6 +20,8 @@
 	</parent>
 
 	<properties>
+		<spring-cloud-services.version>2.0.1.RELEASE</spring-cloud-services.version>
+		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -97,10 +99,35 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>io.pivotal.spring.cloud</groupId>
+			<artifactId>spring-cloud-services-starter-config-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.pivotal.spring.cloud</groupId>
+			<artifactId>spring-cloud-services-starter-service-registry</artifactId>
+		</dependency>
+
 	</dependencies>
 	
 	<dependencyManagement>
    		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.pivotal.spring.cloud</groupId>
+				<artifactId>spring-cloud-services-dependencies</artifactId>
+				<version>${spring-cloud-services.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 	       <dependency>
 	           <groupId>org.springframework.cloud</groupId>
 	           <artifactId>spring-cloud-openfeign</artifactId>
