@@ -55,7 +55,7 @@ public class TrainerServiceImplTest {
 		public FindLocationCommand FindLocationCommand(){
 			return Mockito.mock(FindLocationCommand.class);
 		}
-		
+
 		@Bean
 		public FindSkillsCommand FindSkillsCommand(){
 			return Mockito.mock(FindSkillsCommand.class);
@@ -65,7 +65,6 @@ public class TrainerServiceImplTest {
 		public TrainerMessenger TrainerMessenger(){
 			return Mockito.mock(TrainerMessenger.class);
 		}
-
 
 	}
 
