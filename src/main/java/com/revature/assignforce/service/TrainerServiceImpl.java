@@ -76,7 +76,6 @@ public class TrainerServiceImpl implements TrainerService {
 			skills = new HashSet<>();
 			t.setSkills(skills);
 		}
-		
 		t = validateReferences(t);
 
 		for (SkillIdHolder s : skills) {

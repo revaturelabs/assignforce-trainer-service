@@ -4,9 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.revature.assignforce.beans.Trainer;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Transactional
+@Service
 public interface TrainerService {
-	
+
 	List<Trainer> getAll();
 	Optional<Trainer> findById(int id);
 	Trainer update(Trainer t);

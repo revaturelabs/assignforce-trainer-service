@@ -8,9 +8,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import com.revature.assignforce.commands.FindLocationCommand;
+import com.revature.assignforce.commands.FindSkillsCommand;
+import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -46,12 +50,31 @@ public class TrainerServiceImplTest {
 		public SkillRepository SkillRepository() {
 			return Mockito.mock(SkillRepository.class);
 		}
+
+		@Bean
+		public FindLocationCommand FindLocationCommand(){
+			return Mockito.mock(FindLocationCommand.class);
+		}
+		@Bean
+		public FindSkillsCommand FindSkillsCommand(){
+			return Mockito.mock(FindSkillsCommand.class);
+		}
+
+		@Bean
+		public TrainerMessenger TrainerMessenger(){
+			return Mockito.mock(TrainerMessenger.class);
+		}
+
+
 	}
 
 	@Autowired
 	private TrainerService trainerService;
 	@Autowired
 	private TrainerRepo trainerRepository;
+
+	@Autowired
+	private FindLocationCommand findLocationCommand;
 
 	@Test
 	public void getAllTest() {
@@ -152,7 +175,9 @@ public class TrainerServiceImplTest {
 
 	@Test
 	public void updateTest() {
-		Cert c1 = new Cert(1, "AWS");
+
+		//create and populate mock objects
+	    Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
 		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
@@ -175,8 +200,13 @@ public class TrainerServiceImplTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(1, "Bernie", "Williams", true, 1, unavailabilitySet, "bWilly@gmail.com", skillSet,
 				certSet, "I am a Professional", "www.linkedin.com");
-		t1.setEmail("newBW2018@yahoo.com");
-		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
+
+		// Tell Mockito what services/methods to mock
+        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+        Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
+
+        // Actual testing code
+        t1.setEmail("newBW2018@yahoo.com");
 		Trainer testTrainer = trainerService.update(t1);
 		assertTrue(testTrainer.getEmail().equals("newBW2018@yahoo.com"));
 	}
@@ -207,6 +237,7 @@ public class TrainerServiceImplTest {
 		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
+        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 		Trainer testTrainer = trainerService.create(t1);
 		assertTrue(testTrainer.getId() == 12);
 	}
