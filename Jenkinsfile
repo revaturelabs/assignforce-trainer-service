@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        APP_NAME="skill-service"
+        APP_NAME="trainer-service"
         IMG_NAME="af-trainers"
     }
 
