@@ -55,6 +55,7 @@ public class TrainerServiceImplTest {
 		public FindLocationCommand FindLocationCommand(){
 			return Mockito.mock(FindLocationCommand.class);
 		}
+		
 		@Bean
 		public FindSkillsCommand FindSkillsCommand(){
 			return Mockito.mock(FindSkillsCommand.class);
@@ -236,6 +237,7 @@ public class TrainerServiceImplTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
+
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
         Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 		Trainer testTrainer = trainerService.create(t1);
