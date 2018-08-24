@@ -57,7 +57,7 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public Trainer update(Trainer t) {
 		
-		t = validateReferences(t);
+		// t = validateReferences(t);
 		return trainerRepo.save(t);
 	}
 
