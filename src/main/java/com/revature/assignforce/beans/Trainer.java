@@ -52,7 +52,7 @@ public class Trainer {
 	private String email;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "Trainer_Skills")
+	@JoinTable(name = "TRAINER_SKILLIDHOLDER")
 	private Set<SkillIdHolder> skills;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
