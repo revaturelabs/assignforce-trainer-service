@@ -56,17 +56,8 @@ public class TrainerServiceImpl implements TrainerService {
 
 	@Override
 	public Trainer update(Trainer t) {
-		Set<SkillIdHolder> skills = t.getSkills();
-		if (skills == null) {
-			System.out.println("SKILLS IS NULL");
-			skills = new HashSet<>();
-		}
 		
 		t = validateReferences(t);
-
-		for (SkillIdHolder s : skills) {
-			skillRepo.save(s);
-		}
 		return trainerRepo.save(t);
 	}
 
