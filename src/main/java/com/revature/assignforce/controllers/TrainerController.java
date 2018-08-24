@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.service.TrainerService;
 
-@CrossOrigin
 @RestController
 public class TrainerController {
 
