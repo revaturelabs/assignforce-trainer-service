@@ -1,6 +1,3 @@
 feign:
   hystrix:
     enabled: true
-spring:
-  rabbitmq:
-    addresses: ${VCAP_SERVICES.cloudamqp[0].credentials.uri}
