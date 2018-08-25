@@ -3,4 +3,4 @@ feign:
     enabled: true
 spring:
   rabbitmq:
-    addresses: ${VCAP_SERVICE.cloudamqp[0].credentials.uri}
+    addresses: ${VCAP_SERVICES.cloudamqp[0].credentials.uri}
