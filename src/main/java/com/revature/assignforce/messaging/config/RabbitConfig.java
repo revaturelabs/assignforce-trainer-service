@@ -11,7 +11,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 @Configuration
 public class RabbitConfig {
 
-	@Value("${VCAP_SERVICES.cloudamqp.[0].credentials.uri}")
+	@Value("${VCAP_SERVICES:{}")
 	String uri;
 	
 	Logger log = Logger.getLogger(RabbitConfig.class);
