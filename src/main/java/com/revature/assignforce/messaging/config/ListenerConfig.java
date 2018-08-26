@@ -26,6 +26,5 @@ public class ListenerConfig implements RabbitListenerConfigurer {
 	@Override
 	public void configureRabbitListeners(RabbitListenerEndpointRegistrar registrar) {
 		registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
-		regist
 	}
 }
