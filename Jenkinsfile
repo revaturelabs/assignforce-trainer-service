@@ -4,7 +4,7 @@ pipeline {
         //setup image and app name for cli tools
         APP_NAME="trainer-service"
         IMG_NAME="af-trainers"
-        CF_ORG="Revature Training"
+        CF_ORG="'Revature Training'"
 PROD_DOM="revaturecf.com"
         DEV_DOM="cfapps.io"
     }
