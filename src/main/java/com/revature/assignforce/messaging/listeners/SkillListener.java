@@ -23,6 +23,8 @@ import com.rabbitmq.client.Channel;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.service.TrainerService;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class SkillListener {
 
@@ -43,9 +45,12 @@ public class SkillListener {
 	}
 
 	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill"))
-	public void receiveMessage(final SkillMessage skillMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+	public void receiveMessage(final byte[] sm, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+		
+		SkillMessage skillMessage = null;
 
 		try {
+			skillMessage = new ObjectMapper().readValue(sm, SkillMessage.class);
 			logger.info(String.format("Received message to %s skill %d", skillMessage.getContext(), skillMessage.getSkillId()));
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
