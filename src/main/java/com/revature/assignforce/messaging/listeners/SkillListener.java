@@ -1,5 +1,8 @@
 package com.revature.assignforce.messaging.listeners;
 
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.repos.SkillRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
@@ -25,13 +28,17 @@ public class SkillListener {
 	Logger logger = LoggerFactory.getLogger(SkillListener.class);
 
 	private TrainerService trainerService;
+	private SkillRepository skillRepository;
 	private final String trainerQueue;
 
+	@Autowired
 	public SkillListener(TrainerService trainerService,
-			@Value("${spring.rabbitmq.batch-queue:trainer-queue}") String trainerQueue) {
+			@Value("${spring.rabbitmq.batch-queue:trainer-queue}") String trainerQueue,
+						 SkillRepository skillRepository) {
 		super();
 		this.trainerService = trainerService;
 		this.trainerQueue = trainerQueue;
+		this.skillRepository = skillRepository;
 	}
 
 	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill.delete"))
@@ -62,6 +69,22 @@ public class SkillListener {
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
 			logger.warn("Exception will processing deactivation message for skill " + skillId);
+			logger.warn(e.getMessage());
+		}
+	}
+
+	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill.create"))
+	public void receiveCreateMessage(final Integer skillId, Channel channel,
+										 @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+
+		try {
+			logger.info("Create message received for skill " + skillId);
+			SkillIdHolder skillIdHolder = new SkillIdHolder();
+			skillIdHolder.setSkillId(skillId);
+			skillRepository.save(skillIdHolder);
+			channel.basicAck(tag, false);
+		} catch (IOException e) {
+			logger.warn("Exception will processing create message for skill " + skillId);
 			logger.warn(e.getMessage());
 		}
 	}
