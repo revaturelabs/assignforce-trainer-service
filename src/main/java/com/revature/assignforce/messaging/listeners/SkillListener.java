@@ -53,6 +53,7 @@ public class SkillListener {
 			skillMessage = new ObjectMapper().readValue(sm, SkillMessage.class);
 			logger.info(String.format("Received message to %s skill %d", skillMessage.getContext(), skillMessage.getSkillId()));
 			if(skillMessage.getContext().equalsIgnoreCase("create")) {
+				logger.info("Adding new skill to SkillIdHolder");
 				SkillIdHolder skillIdHolder = new SkillIdHolder();
 				skillIdHolder.setSkillId(skillMessage.getSkillId());
 				this.skillRepository.save(skillIdHolder);
