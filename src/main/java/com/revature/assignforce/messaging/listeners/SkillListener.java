@@ -52,6 +52,11 @@ public class SkillListener {
 		try {
 			skillMessage = new ObjectMapper().readValue(sm, SkillMessage.class);
 			logger.info(String.format("Received message to %s skill %d", skillMessage.getContext(), skillMessage.getSkillId()));
+			if(skillMessage.getContext().equalsIgnoreCase("create")) {
+				SkillIdHolder skillIdHolder = new SkillIdHolder();
+				skillIdHolder.setSkillId(skillMessage.getSkillId());
+				this.skillRepository.save(skillIdHolder);
+			}
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
 			logger.warn("Error while processing skill message " + skillMessage.getSkillId());
