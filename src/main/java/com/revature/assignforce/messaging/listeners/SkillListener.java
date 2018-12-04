@@ -23,6 +23,8 @@ import com.rabbitmq.client.Channel;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.service.TrainerService;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class SkillListener {
 
