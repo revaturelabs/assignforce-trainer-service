@@ -43,9 +43,10 @@ public class SkillListener {
 	}
 
 	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill"))
-	public void receiveMessage(final SkillMessage skillMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+	public void receiveMessage(final byte[] sm, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
 
 		try {
+			SkillMessage skillMessage = new ObjectMapper().readValue(skillMessge, SkillMessage.class);
 			logger.info(String.format("Received message to %s skill %d", skillMessage.getContext(), skillMessage.getSkillId()));
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
