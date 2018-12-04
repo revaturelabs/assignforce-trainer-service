@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,15 +51,15 @@ public class TrainerServiceImplTest {
 			return Mockito.mock(SkillRepository.class);
 		}
 
-		@Bean
-		public FindLocationCommand FindLocationCommand(){
-			return Mockito.mock(FindLocationCommand.class);
-		}
-
-		@Bean
-		public FindSkillsCommand FindSkillsCommand(){
-			return Mockito.mock(FindSkillsCommand.class);
-		}
+//		@Bean
+//		public FindLocationCommand FindLocationCommand(){
+//			return Mockito.mock(FindLocationCommand.class);
+//		}
+//
+//		@Bean
+//		public FindSkillsCommand FindSkillsCommand(){
+//			return Mockito.mock(FindSkillsCommand.class);
+//		}
 
 		@Bean
 		public TrainerMessenger TrainerMessenger(){
@@ -73,8 +73,8 @@ public class TrainerServiceImplTest {
 	@Autowired
 	private TrainerRepo trainerRepository;
 
-	@Autowired
-	private FindLocationCommand findLocationCommand;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
 
 	@Test
 	public void getAllTest() {
@@ -202,7 +202,7 @@ public class TrainerServiceImplTest {
 				certSet, "I am a Professional", "www.linkedin.com");
 
 		// Tell Mockito what services/methods to mock
-        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
         Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
 
         // Actual testing code
@@ -238,7 +238,7 @@ public class TrainerServiceImplTest {
 				certSet, "I am a Duelist", "www.linkedin.com");
 
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 		Trainer testTrainer = trainerService.create(t1);
 		assertTrue(testTrainer.getId() == 12);
 	}

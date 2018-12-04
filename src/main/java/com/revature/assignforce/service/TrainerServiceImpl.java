@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
@@ -30,11 +30,11 @@ public class TrainerServiceImpl implements TrainerService {
 	@Autowired
 	private SkillRepository skillRepo;
 	
-	@Autowired
-	private FindLocationCommand findLocationCommand;
-	
-	@Autowired
-	private FindSkillsCommand findSkillsCommand;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
+//
+//	@Autowired
+//	private FindSkillsCommand findSkillsCommand;
 	
 	@Autowired
 	private TrainerMessenger trainerMessenger;
@@ -68,7 +68,7 @@ public class TrainerServiceImpl implements TrainerService {
 			skills = new HashSet<>();
 			t.setSkills(skills);
 		}
-		t = validateReferences(t);
+//		t = validateReferences(t);
 
 		for (SkillIdHolder s : skills) {
 			skillRepo.save(s);
@@ -93,9 +93,9 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerRepo.findByPreferredLocation(preferredLocation);
 	}
 
-	private Trainer validateReferences(Trainer trainer) {
-		trainer = findLocationCommand.findLocation(trainer);
-		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
-		return trainer;
-	}
+//	private Trainer validateReferences(Trainer trainer) {
+//		trainer = findLocationCommand.findLocation(trainer);
+//		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
+//		return trainer;
+//	}
 }
