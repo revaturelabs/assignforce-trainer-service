@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,14 +58,14 @@ public class TrainerControllerTest {
 			return new TrainerController();
 		}
 
-		@Bean
-		public FindLocationCommand FindLocationCommand(){
-			return Mockito.mock(FindLocationCommand.class);
-		}
-		@Bean
-		public FindSkillsCommand FindSkillsCommand(){
-			return Mockito.mock(FindSkillsCommand.class);
-		}
+//		@Bean
+//		public FindLocationCommand FindLocationCommand(){
+//			return Mockito.mock(FindLocationCommand.class);
+//		}
+//		@Bean
+//		public FindSkillsCommand FindSkillsCommand(){
+//			return Mockito.mock(FindSkillsCommand.class);
+//		}
 
 		@Bean
 		public TrainerMessenger TrainerMessenger(){
@@ -78,8 +78,8 @@ public class TrainerControllerTest {
 	private TrainerRepo trainerRepository;
 	@Autowired
 	private TrainerController trainerController;
-	@Autowired
-	private FindLocationCommand findLocationCommand;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
 
 	@Test
 	public void getAllTest() {
@@ -216,7 +216,7 @@ public class TrainerControllerTest {
 		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
 		assertTrue(reTest.getBody().getId() == 12 && reTest.getStatusCode() == HttpStatus.CREATED);
@@ -247,7 +247,7 @@ public class TrainerControllerTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(19, "Mickey", "Mouse", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a mouse", "www.linkedin.com");
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
 		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
@@ -280,7 +280,7 @@ public class TrainerControllerTest {
 				certSet, "I am a Duelist", "www.linkedin.com");
 		t1.setEmail("duelistKing@gmail.com");
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
 		assertTrue(reTest.getBody().getEmail().equals("duelistKing@gmail.com")
@@ -313,7 +313,7 @@ public class TrainerControllerTest {
 		Trainer t1 = new Trainer(29, "Rick", "Grimes", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
 		t1.setEmail("coral@gmail.com");
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
 		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
