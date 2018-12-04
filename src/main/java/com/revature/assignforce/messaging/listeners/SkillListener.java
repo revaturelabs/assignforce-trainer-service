@@ -1,6 +1,7 @@
 package com.revature.assignforce.messaging.listeners;
 
 import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.SkillMessage;
 import com.revature.assignforce.repos.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
@@ -41,51 +42,15 @@ public class SkillListener {
 		this.skillRepository = skillRepository;
 	}
 
-	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill.delete"))
-	public void receiveMessage(final Integer skillId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill"))
+	public void receiveMessage(final SkillMessage skillMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
 
 		try {
-			logger.info("Received message to delete skill " + skillId);
+			logger.info(String.format("Received message to %s skill %d", skillMessage.getContext(), skillMessage.getSkillId()));
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
-			logger.warn("Error while processing delete skill message " + skillId);
+			logger.warn("Error while processing skill message " + skillMessage.getSkillId());
 			e.printStackTrace();
-		}
-
-		List<Trainer> trainers = trainerService.getAll();
-
-		trainers.forEach(
-				trainer -> trainer.getSkills().removeIf(skillIdHolder -> skillIdHolder.getSkillId() == skillId));
-
-		trainers.forEach(trainer -> trainerService.update(trainer));
-	}
-
-	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill.deactivate"))
-	public void receiveDeactivateMessage(final Integer skillId, Channel channel,
-			@Header(AmqpHeaders.DELIVERY_TAG) long tag) {
-
-		try {
-			logger.info("Deactivation message received for skill " + skillId);
-			channel.basicAck(tag, false);
-		} catch (IOException e) {
-			logger.warn("Exception will processing deactivation message for skill " + skillId);
-			logger.warn(e.getMessage());
-		}
-	}
-
-	@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "trainer-queue", durable = "true"), exchange = @Exchange(value = "assignforce", ignoreDeclarationExceptions = "true"), key = "assignforce.skill.create"))
-	public void receiveCreateMessage(final Integer skillId, Channel channel,
-										 @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
-
-		try {
-			logger.info("Create message received for skill " + skillId);
-			SkillIdHolder skillIdHolder = new SkillIdHolder();
-			skillIdHolder.setSkillId(skillId);
-			skillRepository.save(skillIdHolder);
-			channel.basicAck(tag, false);
-		} catch (IOException e) {
-			logger.warn("Exception will processing create message for skill " + skillId);
-			logger.warn(e.getMessage());
 		}
 	}
 }
