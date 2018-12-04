@@ -38,8 +38,10 @@ public class SkillListener {
 	public void receiveMessage(final Integer skillId, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
 
 		try {
+			logger.info("Received message to delete skill " + skillId);
 			channel.basicAck(tag, false);
 		} catch (IOException e) {
+			logger.warn("Error while processing delete skill message " + skillId);
 			e.printStackTrace();
 		}
 
