@@ -70,9 +70,9 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 //		t = validateReferences(t);
 
-		for (SkillIdHolder s : skills) {
-			skillRepo.save(s);
-		}
+// 		for (SkillIdHolder s : skills) {
+// 			skillRepo.save(s);
+// 		}
 		return trainerRepo.save(t);
 	}
 
