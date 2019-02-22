@@ -31,6 +31,7 @@ public class TrainerTest {
 		}
 	}
 
+	
 	@Test
 	public void trainerTest1() {
 		Trainer t1 = new Trainer();
@@ -83,7 +84,7 @@ public class TrainerTest {
 		t1.setLastName("Cena");
 		assertTrue(t1.getLastName().equals("Cena"));
 	}
-	
+
 	@Test
 	public void getSetIsActiveTest() {
 		Trainer t1 = new Trainer();
@@ -117,6 +118,13 @@ public class TrainerTest {
 		assertTrue(t1.getEmail().equals("cantSeeMe321@gmail.com"));
 	}
 	
+	@Test 
+	public void getSetEmailTest2() {
+		Trainer t1 = new Trainer();
+		t1.setEmail("invalidEmailTest");
+		assertTrue(t1.getEmail().equals("invalidEmailTest"));
+	}
+	
 	@Test
 	public void getSetSkills() {
 		SkillIdHolder s1 = new SkillIdHolder(7);
@@ -130,6 +138,22 @@ public class TrainerTest {
 		t1.setSkills(skillSet);
 		assertTrue(t1.getSkills().size() == 3);
 	}
+	
+	@Test
+	public void getSetSkills2() {
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		SkillIdHolder s4 = new SkillIdHolder(12);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer();
+		t1.setSkills(skillSet);
+		assertTrue(t1.getSkills().add(s4));
+	}
+	
 	
 	@Test
 	public void getSetCertificationsTest() {
@@ -146,6 +170,21 @@ public class TrainerTest {
 	}
 	
 	@Test
+	public void getSetCertificationsTest2() {
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Cert c4 = new Cert(7, "Angular");
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		Trainer t1 = new Trainer();
+		t1.setCertifications(certSet);
+		assertTrue(t1.getCertifications().add(c4));
+	}
+	
+	@Test
 	public void getSetResumeTest() {
 		Trainer t1 = new Trainer();
 		t1.setResume("Im a professional");
@@ -158,5 +197,6 @@ public class TrainerTest {
 		t1.setLinkedInUrl("someUrl");
 		assertTrue(t1.getLinkedInUrl().equals("someUrl"));
 	}
+	
 
 }
