@@ -118,13 +118,6 @@ public class TrainerTest {
 		assertTrue(t1.getEmail().equals("cantSeeMe321@gmail.com"));
 	}
 	
-	@Test 
-	public void getSetEmailTest2() {
-		Trainer t1 = new Trainer();
-		t1.setEmail("invalidEmailTest");
-		assertTrue(t1.getEmail().equals("invalidEmailTest"));
-	}
-	
 	@Test
 	public void getSetSkills() {
 		SkillIdHolder s1 = new SkillIdHolder(7);

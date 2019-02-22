@@ -67,7 +67,8 @@ public class TrainerServiceImplTest {
 		}
 
 	}
-
+	
+	
 	@Autowired
 	private TrainerService trainerService;
 	@Autowired
@@ -249,6 +250,27 @@ public class TrainerServiceImplTest {
 		trainerService.delete(44);
 		Optional<Trainer> opTest = trainerService.findById(44);
 		assertFalse(opTest.isPresent());
+	}
+	
+	@Test
+	public void preferredLocationTest() {
+		int i = 2;
+		Trainer t1 = new Trainer();
+		Trainer t2 = new Trainer();
+		Trainer t3 = new Trainer();
+		t1.setId(1);
+		t2.setId(2);
+		t3.setId(3);
+		t1.setPreferredLocation(1);
+		t2.setPreferredLocation(2);
+		t3.setPreferredLocation(3);	
+		List<Trainer> tlist = new ArrayList();
+		tlist.add(t1);
+		tlist.add(t2);
+		tlist.add(t3);
+		Mockito.when(trainerRepository.findByPreferredLocation(i)).thenReturn(tlist);
+		List<Trainer> tlist2 = trainerService.findByPreferredLocation(i);
+		assertTrue(tlist2.get(i-1) == t2);	
 	}
 
 }
