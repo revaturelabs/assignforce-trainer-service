@@ -69,7 +69,9 @@ public class TrainerController {
 	// delete
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<Trainer> delete(@PathVariable int id) {
+		if (trainerService.findById(id) == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		trainerService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
+ 	}
 }

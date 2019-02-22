@@ -1,6 +1,7 @@
 package com.revature.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -320,10 +321,21 @@ public class TrainerControllerTest {
 	}
 
 	@Test
-	public void deleteTest() {
+	public void deleteTestNotFound() {
+		Mockito.when(trainerController.delete(0)).thenReturn(null);
+		ResponseEntity<Trainer> reTest = trainerController.delete(0);
+		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+	
+	
+	
+	@Test
+	public void deleteTestOk() {
 		Mockito.doNothing().when(trainerRepository).deleteById(89);
 		ResponseEntity<Trainer> reTest = trainerController.delete(89);
 		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
 	}
+	
+	
 
 }
