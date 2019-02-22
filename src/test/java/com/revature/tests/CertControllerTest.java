@@ -117,5 +117,13 @@ public class CertControllerTest {
 		ResponseEntity<Cert> reTest = certController.delete(19);
 		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
 	}
+	
+	@Test
+	public void deleteTest2() {
+		Cert c1 = new Cert(19, "Pega");
+		Mockito.doNothing().when(certRepository).deleteById(19);
+		ResponseEntity<Cert> reTest = certController.delete(19);
+		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
+	}
 
 }
