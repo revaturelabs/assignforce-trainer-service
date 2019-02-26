@@ -3,7 +3,7 @@ pipeline {
     environment {
         //setup image and app name for cli tools
         APP_NAME="trainer-service"
-        IMG_NAME="af-trainers"
+        IMG_NAME="assignforce-trainer"
         REPO="ajduet"
     }
 
