@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.assignforce.beans.Cert;
-import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.controllers.CertController;
 import com.revature.assignforce.repos.CertRepo;
 import com.revature.assignforce.service.CertService;
@@ -118,20 +117,5 @@ public class CertControllerTest {
 		ResponseEntity<Cert> reTest = certController.delete(19);
 		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
 	}
-	
-	@Test
-	public void deleteTest2() {
-		Cert c1 = new Cert(19, "Pega");
-		Mockito.doNothing().when(certRepository).deleteById(19);
-		ResponseEntity<Cert> reTest = certController.delete(19);
-		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
-	}
-	
-//	@Test
-//	public void deleteTestNotFound() {
-//		ResponseEntity<Cert> reTest = certController.delete(0);
-//		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
-//	}
-//	
 
 }

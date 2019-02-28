@@ -25,4 +25,5 @@ public class TrainerMessenger {
 	public void sendDeletionMessage(int id) {
 		rabbitTemplate.convertAndSend(exchange, routingKey, id);
 	}
+	
 }

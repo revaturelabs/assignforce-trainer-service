@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.assignforce.beans.Cert;
-import com.revature.assignforce.beans.SkillIdHolder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

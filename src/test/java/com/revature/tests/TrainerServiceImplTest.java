@@ -14,7 +14,6 @@ import com.revature.assignforce.messaging.messengers.TrainerMessenger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -264,7 +263,7 @@ public class TrainerServiceImplTest {
 		t1.setPreferredLocation(1);
 		t2.setPreferredLocation(2);
 		t3.setPreferredLocation(3);	
-		List<Trainer> tlist = new ArrayList();
+		List<Trainer> tlist = new ArrayList<Trainer>();
 		tlist.add(t1);
 		tlist.add(t2);
 		tlist.add(t3);

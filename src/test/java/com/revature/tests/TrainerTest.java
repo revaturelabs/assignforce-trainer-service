@@ -3,12 +3,10 @@ package com.revature.tests;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashSet;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -191,5 +189,4 @@ public class TrainerTest {
 		assertTrue(t1.getLinkedInUrl().equals("someUrl"));
 	}
 	
-
 }

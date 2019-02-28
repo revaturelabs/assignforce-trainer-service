@@ -33,5 +33,4 @@ public class SkillIdHolder {
 		this.skillId = skillId;
 	}
 	
-	
 }

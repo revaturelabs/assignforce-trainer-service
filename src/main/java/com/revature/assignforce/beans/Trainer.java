@@ -1,6 +1,5 @@
 package com.revature.assignforce.beans;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.springframework.stereotype.Component;
 
 
@@ -179,7 +176,5 @@ public class Trainer {
 	public void setLinkedInUrl(String linkedInUrl) {
 		this.linkedInUrl = linkedInUrl;
 	}
-
-		
 
 }
