@@ -50,7 +50,7 @@
         "retries": 5,
         "command": [
           "CMD-SHELL",
-          "curl -f http://localhost:8080/actuator/health"
+          "curl -f http://localhost:8080/actuator/health || exit 1"
         ],
         "timeout": 10,
         "interval": 10,
