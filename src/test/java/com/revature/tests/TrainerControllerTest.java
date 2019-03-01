@@ -1,15 +1,14 @@
 package com.revature.tests;
 
-import static org.junit.Assert.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-//import com.revature.assignforce.commands.FindLocationCommand;
-//import com.revature.assignforce.commands.FindSkillsCommand;
-import com.revature.assignforce.messaging.messengers.TrainerMessenger;
+import com.revature.assignforce.beans.Cert;
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.Trainer;
+import com.revature.assignforce.beans.Unavailability;
+import com.revature.assignforce.controllers.TrainerController;
+import com.revature.assignforce.repos.SkillRepository;
+import com.revature.assignforce.repos.TrainerRepo;
+import com.revature.assignforce.service.TrainerService;
+import com.revature.assignforce.service.TrainerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -21,15 +20,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.revature.assignforce.beans.Cert;
-import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.beans.Unavailability;
-import com.revature.assignforce.controllers.TrainerController;
-import com.revature.assignforce.repos.SkillRepository;
-import com.revature.assignforce.repos.TrainerRepo;
-import com.revature.assignforce.service.TrainerService;
-import com.revature.assignforce.service.TrainerServiceImpl;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -65,11 +65,6 @@ public class TrainerControllerTest {
 //		public FindSkillsCommand FindSkillsCommand(){
 //			return Mockito.mock(FindSkillsCommand.class);
 //		}
-
-		@Bean
-		public TrainerMessenger TrainerMessenger(){
-			return Mockito.mock(TrainerMessenger.class);
-		}
 
 	}
 
