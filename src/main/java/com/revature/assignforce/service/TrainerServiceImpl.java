@@ -1,20 +1,19 @@
 package com.revature.assignforce.service;
 
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.Trainer;
+import com.revature.assignforce.repos.TrainerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.beans.Trainer;
 //import com.revature.assignforce.commands.FindLocationCommand;
 //import com.revature.assignforce.commands.FindSkillsCommand;
-import com.revature.assignforce.messaging.messengers.TrainerMessenger;
-import com.revature.assignforce.repos.TrainerRepo;
 
 @Service
 @Transactional
@@ -31,9 +30,6 @@ public class TrainerServiceImpl implements TrainerService {
 //
 //	@Autowired
 //	private FindSkillsCommand findSkillsCommand;
-	
-	@Autowired
-	private TrainerMessenger trainerMessenger;
 
 	@Override
 	public List<Trainer> getAll() {
@@ -80,7 +76,6 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		t.get().setSkills(new HashSet<>());
 		trainerRepo.save(t.get());
-		trainerMessenger.sendDeletionMessage(id);
 		trainerRepo.deleteById(id);
 	}
 	
