@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "TRAINER")
 public class Trainer {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trainer")
 	@SequenceGenerator(name = "trainer", sequenceName = "trainer_seq", allocationSize = 1)
