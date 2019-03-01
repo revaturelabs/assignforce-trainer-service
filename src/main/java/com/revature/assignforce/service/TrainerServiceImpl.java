@@ -1,12 +1,9 @@
 package com.revature.assignforce.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import com.revature.assignforce.beans.Trainer;
 //import com.revature.assignforce.commands.FindLocationCommand;
 //import com.revature.assignforce.commands.FindSkillsCommand;
 import com.revature.assignforce.messaging.messengers.TrainerMessenger;
-import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
 
 @Service
@@ -27,8 +23,8 @@ public class TrainerServiceImpl implements TrainerService {
 	@Autowired
 	private TrainerRepo trainerRepo;
 
-	@Autowired
-	private SkillRepository skillRepo;
+//	@Autowired
+//	private SkillRepository skillRepo;
 	
 //	@Autowired
 //	private FindLocationCommand findLocationCommand;
@@ -98,4 +94,5 @@ public class TrainerServiceImpl implements TrainerService {
 //		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
 //		return trainer;
 //	}
+	
 }

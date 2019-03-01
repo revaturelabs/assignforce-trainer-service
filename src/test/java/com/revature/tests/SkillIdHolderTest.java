@@ -4,17 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.controllers.TrainerController;
-import com.revature.assignforce.repos.TrainerRepo;
-import com.revature.assignforce.service.TrainerService;
-import com.revature.assignforce.service.TrainerServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

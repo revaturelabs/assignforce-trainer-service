@@ -17,4 +17,5 @@ public class AssignForceTrainerServiceApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(AssignForceTrainerServiceApplication.class).run(args);
 	}
+	
 }
