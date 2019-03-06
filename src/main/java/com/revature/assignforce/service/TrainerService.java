@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Transactional
-@Service
 public interface TrainerService {
 
 	List<Trainer> getAll();
