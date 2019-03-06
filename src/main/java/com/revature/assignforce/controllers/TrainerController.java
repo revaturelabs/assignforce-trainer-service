@@ -58,7 +58,7 @@ public class TrainerController {
 	}
 
 	// update
-	@PutMapping
+	@PutMapping("{id}")
 	public ResponseEntity<Trainer> update(@RequestBody Trainer t) {
 		t = trainerService.update(t);
 		if (t == null)
