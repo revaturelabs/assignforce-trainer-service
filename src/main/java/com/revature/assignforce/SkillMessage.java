@@ -13,12 +13,6 @@ public class SkillMessage {
         super();
     }
 
-    @JsonCreator
-    public SkillMessage(@JsonProperty("Message") String message) throws IOException {
-        SkillMessage s = new ObjectMapper().readValue(message, SkillMessage.class);
-        this.skillId = s.getSkillId();
-    }
-
     public int getSkillId() {
         return skillId;
     }
