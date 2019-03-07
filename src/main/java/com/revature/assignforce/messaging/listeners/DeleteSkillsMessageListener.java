@@ -1,5 +1,6 @@
 package com.revature.assignforce.messaging.listeners;
 
+import com.revature.assignforce.SkillMessage;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.repos.SkillRepository;
 import org.slf4j.Logger;
@@ -23,8 +24,9 @@ public class DeleteSkillsMessageListener implements SkillsMessageListener {
 
     @Override
     @SqsListener(value="${app.sqs.queues.del-skill-queue}", deletionPolicy= SqsMessageDeletionPolicy.ON_SUCCESS)
-    public void receive(String message, SkillIdHolder skillMessage) throws Exception{
+    public void receive(String message, SkillMessage skillMessage) throws Exception{
         LOG.info("Delete skill id reference -- " + skillMessage.getSkillId());
-        skillRepository.delete(skillMessage);
+        SkillIdHolder s = new SkillIdHolder(skillMessage.getSkillId());
+        skillRepository.delete(s);
     }
 }

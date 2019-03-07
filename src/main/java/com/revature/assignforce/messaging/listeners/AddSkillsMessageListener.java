@@ -1,5 +1,6 @@
 package com.revature.assignforce.messaging.listeners;
 
+import com.revature.assignforce.SkillMessage;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.repos.SkillRepository;
 import org.slf4j.Logger;
@@ -24,9 +25,10 @@ public class AddSkillsMessageListener implements SkillsMessageListener {
 
     @Override
     @SqsListener("${app.sqs.queues.add-skill-queue}")
-    public void receive(String message, @NotificationMessage SkillIdHolder skillMessage) throws Exception{
+    public void receive(String message, SkillMessage skillMessage) throws Exception{
         LOG.info("Received -- " + message);
         LOG.info("Creating new skill id reference -- " + skillMessage.getSkillId());
-        skillRepository.delete(skillMessage);
+        SkillIdHolder s = new SkillIdHolder(skillMessage.getSkillId());
+        skillRepository.save(s);
     }
 }
