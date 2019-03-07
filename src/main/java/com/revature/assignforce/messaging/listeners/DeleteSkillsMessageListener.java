@@ -23,7 +23,7 @@ public class DeleteSkillsMessageListener implements SkillsMessageListener {
 
     @Override
     @SqsListener(value="${app.sqs.queues.del-skill-queue}", deletionPolicy= SqsMessageDeletionPolicy.ON_SUCCESS)
-    public void receive(final @NotificationMessage SkillIdHolder skillMessage) {
+    public void receive(String message, final @NotificationMessage SkillIdHolder skillMessage) {
         LOG.info("Delete skill id reference -- " + skillMessage.getSkillId());
         skillRepository.delete(skillMessage);
     }
