@@ -1,5 +1,6 @@
 package com.revature.assignforce.messaging.listeners;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.assignforce.SkillMessage;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.repos.SkillRepository;
@@ -10,6 +11,8 @@ import org.springframework.cloud.aws.messaging.config.annotation.NotificationMes
 import org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class DeleteSkillsMessageListener implements SkillsMessageListener {
@@ -25,8 +28,10 @@ public class DeleteSkillsMessageListener implements SkillsMessageListener {
     @Override
     @SqsListener(value="${app.sqs.queues.del-skill-queue}", deletionPolicy= SqsMessageDeletionPolicy.ON_SUCCESS)
     public void receive(String message) throws Exception{
-//        LOG.info("Delete skill id reference -- " + skillMessage.getSkillId());
-//        SkillIdHolder s = new SkillIdHolder(skillMessage.getSkillId());
-//        skillRepository.delete(s);
+        LOG.info("Received -- " + message);
+        Map<String, String> messageMap = new ObjectMapper().readValue(message, Map.class);
+        SkillMessage sm = new ObjectMapper().readValue(messageMap.get("Message"), SkillMessage.class);
+        SkillIdHolder s = new SkillIdHolder(sm.getSkillId());
+        LOG.info("Skills are being updated to remove " + s.getSkillId());
     }
 }
