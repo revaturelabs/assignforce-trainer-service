@@ -24,7 +24,7 @@ public class AddSkillsMessageListener implements SkillsMessageListener {
 
     @Override
     @SqsListener("${app.sqs.queues.add-skill-queue}")
-    public void receive(String message, final @NotificationMessage SkillIdHolder skillMessage) throws Exception{
+    public void receive(String message, SkillIdHolder skillMessage) throws Exception{
         LOG.info("Received -- " + message);
         LOG.info("Creating new skill id reference -- " + skillMessage.getSkillId());
         skillRepository.delete(skillMessage);
