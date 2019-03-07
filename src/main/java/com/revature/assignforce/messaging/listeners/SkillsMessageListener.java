@@ -1,4 +1,4 @@
-package com.revature.assignforce.service;
+package com.revature.assignforce.messaging.listeners;
 
 import com.revature.assignforce.beans.SkillIdHolder;
 
