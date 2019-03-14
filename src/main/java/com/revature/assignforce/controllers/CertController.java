@@ -56,7 +56,10 @@ public class CertController {
 
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<Cert> delete(@PathVariable int id) {
+		if (service.findById(id) == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
 }

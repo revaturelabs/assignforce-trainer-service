@@ -1,6 +1,5 @@
 package com.revature.assignforce.beans;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.springframework.stereotype.Component;
 
 
@@ -25,6 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Table(name = "TRAINER")
 public class Trainer {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trainer")
@@ -51,7 +49,7 @@ public class Trainer {
 	@Column(name = "email")
 	private String email;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "TRAIN_SKILLIDHOLDER", 
 		joinColumns =  @JoinColumn(name = "TRAINER_ID") , 
 		inverseJoinColumns = @JoinColumn(name = "SKILL_ID") )
@@ -179,7 +177,5 @@ public class Trainer {
 	public void setLinkedInUrl(String linkedInUrl) {
 		this.linkedInUrl = linkedInUrl;
 	}
-
-		
 
 }

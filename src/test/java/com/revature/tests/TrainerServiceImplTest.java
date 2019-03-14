@@ -1,26 +1,5 @@
 package com.revature.tests;
 
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
-import com.revature.assignforce.messaging.messengers.TrainerMessenger;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.revature.assignforce.beans.Cert;
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
@@ -29,6 +8,26 @@ import com.revature.assignforce.repos.SkillRepository;
 import com.revature.assignforce.repos.TrainerRepo;
 import com.revature.assignforce.service.TrainerService;
 import com.revature.assignforce.service.TrainerServiceImpl;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -51,30 +50,25 @@ public class TrainerServiceImplTest {
 			return Mockito.mock(SkillRepository.class);
 		}
 
-		@Bean
-		public FindLocationCommand FindLocationCommand(){
-			return Mockito.mock(FindLocationCommand.class);
-		}
-
-		@Bean
-		public FindSkillsCommand FindSkillsCommand(){
-			return Mockito.mock(FindSkillsCommand.class);
-		}
-
-		@Bean
-		public TrainerMessenger TrainerMessenger(){
-			return Mockito.mock(TrainerMessenger.class);
-		}
-
+//		@Bean
+//		public FindLocationCommand FindLocationCommand(){
+//			return Mockito.mock(FindLocationCommand.class);
+//		}
+//
+//		@Bean
+//		public FindSkillsCommand FindSkillsCommand(){
+//			return Mockito.mock(FindSkillsCommand.class);
+//		}
 	}
-
+	
+	
 	@Autowired
 	private TrainerService trainerService;
 	@Autowired
 	private TrainerRepo trainerRepository;
 
-	@Autowired
-	private FindLocationCommand findLocationCommand;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
 
 	@Test
 	public void getAllTest() {
@@ -202,7 +196,7 @@ public class TrainerServiceImplTest {
 				certSet, "I am a Professional", "www.linkedin.com");
 
 		// Tell Mockito what services/methods to mock
-        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
         Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
 
         // Actual testing code
@@ -238,7 +232,7 @@ public class TrainerServiceImplTest {
 				certSet, "I am a Duelist", "www.linkedin.com");
 
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 		Trainer testTrainer = trainerService.create(t1);
 		assertTrue(testTrainer.getId() == 12);
 	}
@@ -249,6 +243,27 @@ public class TrainerServiceImplTest {
 		trainerService.delete(44);
 		Optional<Trainer> opTest = trainerService.findById(44);
 		assertFalse(opTest.isPresent());
+	}
+	
+	@Test
+	public void preferredLocationTest() {
+		int i = 2;
+		Trainer t1 = new Trainer();
+		Trainer t2 = new Trainer();
+		Trainer t3 = new Trainer();
+		t1.setId(1);
+		t2.setId(2);
+		t3.setId(3);
+		t1.setPreferredLocation(1);
+		t2.setPreferredLocation(2);
+		t3.setPreferredLocation(3);	
+		List<Trainer> tlist = new ArrayList<Trainer>();
+		tlist.add(t1);
+		tlist.add(t2);
+		tlist.add(t3);
+		Mockito.when(trainerRepository.findByPreferredLocation(i)).thenReturn(tlist);
+		List<Trainer> tlist2 = trainerService.findByPreferredLocation(i);
+		assertTrue(tlist2.get(i-1) == t2);	
 	}
 
 }

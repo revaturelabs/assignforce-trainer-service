@@ -1,24 +1,19 @@
 package com.revature.assignforce.service;
 
-import java.util.ArrayList;
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.Trainer;
+import com.revature.assignforce.repos.TrainerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
-import com.revature.assignforce.messaging.messengers.TrainerMessenger;
-import com.revature.assignforce.repos.SkillRepository;
-import com.revature.assignforce.repos.TrainerRepo;
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 
 @Service
 @Transactional
@@ -27,17 +22,14 @@ public class TrainerServiceImpl implements TrainerService {
 	@Autowired
 	private TrainerRepo trainerRepo;
 
-	@Autowired
-	private SkillRepository skillRepo;
+//	@Autowired
+//	private SkillRepository skillRepo;
 	
-	@Autowired
-	private FindLocationCommand findLocationCommand;
-	
-	@Autowired
-	private FindSkillsCommand findSkillsCommand;
-	
-	@Autowired
-	private TrainerMessenger trainerMessenger;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
+//
+//	@Autowired
+//	private FindSkillsCommand findSkillsCommand;
 
 	@Override
 	public List<Trainer> getAll() {
@@ -68,11 +60,11 @@ public class TrainerServiceImpl implements TrainerService {
 			skills = new HashSet<>();
 			t.setSkills(skills);
 		}
-		t = validateReferences(t);
+//		t = validateReferences(t);
 
-		for (SkillIdHolder s : skills) {
-			skillRepo.save(s);
-		}
+// 		for (SkillIdHolder s : skills) {
+// 			skillRepo.save(s);
+// 		}
 		return trainerRepo.save(t);
 	}
 
@@ -84,7 +76,6 @@ public class TrainerServiceImpl implements TrainerService {
 		}
 		t.get().setSkills(new HashSet<>());
 		trainerRepo.save(t.get());
-		trainerMessenger.sendDeletionMessage(id);
 		trainerRepo.deleteById(id);
 	}
 	
@@ -93,9 +84,10 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerRepo.findByPreferredLocation(preferredLocation);
 	}
 
-	private Trainer validateReferences(Trainer trainer) {
-		trainer = findLocationCommand.findLocation(trainer);
-		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
-		return trainer;
-	}
+//	private Trainer validateReferences(Trainer trainer) {
+//		trainer = findLocationCommand.findLocation(trainer);
+//		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));
+//		return trainer;
+//	}
+	
 }

@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
+RUN apk update && apk add curl
 VOLUME /tmp
 ARG JAR_FILE
 EXPOSE 8675

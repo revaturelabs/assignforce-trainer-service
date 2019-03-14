@@ -24,7 +24,6 @@ import com.revature.assignforce.service.CertServiceImpl;
 @SpringBootTest
 public class CertServiceImplTest {
 
-	
 	@Configuration
 	static class CertServiceTestContextConfiguration {
 	@Bean
@@ -36,7 +35,6 @@ public class CertServiceImplTest {
 		return Mockito.mock(CertRepo.class);
 		}
 	}
-	
 	
 	@Autowired
 	private CertService certService;

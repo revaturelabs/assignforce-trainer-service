@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Transactional
-@Service
 public interface TrainerService {
 
 	List<Trainer> getAll();
@@ -19,4 +17,5 @@ public interface TrainerService {
 	void delete(int id);
 	Optional<Trainer> findByEmail(String email);
 	List<Trainer> findByPreferredLocation(Integer preferredLocation);
+	
 }

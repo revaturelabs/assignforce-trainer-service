@@ -1,11 +1,11 @@
 package com.revature.assignforce.beans;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
 
 @Component
 @Entity
@@ -32,6 +32,5 @@ public class SkillIdHolder {
 	public void setSkillId(int skillId) {
 		this.skillId = skillId;
 	}
-	
 	
 }

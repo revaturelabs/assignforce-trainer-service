@@ -1,16 +1,14 @@
 package com.revature.tests;
 
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import com.revature.assignforce.commands.FindLocationCommand;
-import com.revature.assignforce.commands.FindSkillsCommand;
-import com.revature.assignforce.messaging.messengers.TrainerMessenger;
+import com.revature.assignforce.beans.Cert;
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.Trainer;
+import com.revature.assignforce.beans.Unavailability;
+import com.revature.assignforce.controllers.TrainerController;
+import com.revature.assignforce.repos.SkillRepository;
+import com.revature.assignforce.repos.TrainerRepo;
+import com.revature.assignforce.service.TrainerService;
+import com.revature.assignforce.service.TrainerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -22,15 +20,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.revature.assignforce.beans.Cert;
-import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.beans.Unavailability;
-import com.revature.assignforce.controllers.TrainerController;
-import com.revature.assignforce.repos.SkillRepository;
-import com.revature.assignforce.repos.TrainerRepo;
-import com.revature.assignforce.service.TrainerService;
-import com.revature.assignforce.service.TrainerServiceImpl;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+
+//import com.revature.assignforce.commands.FindLocationCommand;
+//import com.revature.assignforce.commands.FindSkillsCommand;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -58,19 +57,14 @@ public class TrainerControllerTest {
 			return new TrainerController();
 		}
 
-		@Bean
-		public FindLocationCommand FindLocationCommand(){
-			return Mockito.mock(FindLocationCommand.class);
-		}
-		@Bean
-		public FindSkillsCommand FindSkillsCommand(){
-			return Mockito.mock(FindSkillsCommand.class);
-		}
-
-		@Bean
-		public TrainerMessenger TrainerMessenger(){
-			return Mockito.mock(TrainerMessenger.class);
-		}
+//		@Bean
+//		public FindLocationCommand FindLocationCommand(){
+//			return Mockito.mock(FindLocationCommand.class);
+//		}
+//		@Bean
+//		public FindSkillsCommand FindSkillsCommand(){
+//			return Mockito.mock(FindSkillsCommand.class);
+//		}
 
 	}
 
@@ -78,8 +72,8 @@ public class TrainerControllerTest {
 	private TrainerRepo trainerRepository;
 	@Autowired
 	private TrainerController trainerController;
-	@Autowired
-	private FindLocationCommand findLocationCommand;
+//	@Autowired
+//	private FindLocationCommand findLocationCommand;
 
 	@Test
 	public void getAllTest() {
@@ -216,7 +210,7 @@ public class TrainerControllerTest {
 		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
 		assertTrue(reTest.getBody().getId() == 12 && reTest.getStatusCode() == HttpStatus.CREATED);
@@ -247,7 +241,7 @@ public class TrainerControllerTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(19, "Mickey", "Mouse", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a mouse", "www.linkedin.com");
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
 		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
@@ -280,7 +274,7 @@ public class TrainerControllerTest {
 				certSet, "I am a Duelist", "www.linkedin.com");
 		t1.setEmail("duelistKing@gmail.com");
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
 		assertTrue(reTest.getBody().getEmail().equals("duelistKing@gmail.com")
@@ -313,17 +307,24 @@ public class TrainerControllerTest {
 		Trainer t1 = new Trainer(29, "Rick", "Grimes", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
 		t1.setEmail("coral@gmail.com");
-		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+//		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
 		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
 	}
 
 	@Test
-	public void deleteTest() {
+	public void deleteTestNotFound() {
+		Mockito.when(trainerController.delete(0)).thenReturn(null);
+		ResponseEntity<Trainer> reTest = trainerController.delete(0);
+		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+	
+	@Test
+	public void deleteTestOk() {
 		Mockito.doNothing().when(trainerRepository).deleteById(89);
 		ResponseEntity<Trainer> reTest = trainerController.delete(89);
 		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
 	}
-
+	
 }

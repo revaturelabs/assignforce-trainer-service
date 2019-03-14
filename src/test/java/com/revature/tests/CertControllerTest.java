@@ -74,7 +74,7 @@ public class CertControllerTest {
 	}
 	
 	@Test
-	public void getByIdTestOkNotFound() {
+	public void getByIdTestNotFound() {
 		ResponseEntity<Cert> reTest = certController.getById(29);
 		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
 	}
