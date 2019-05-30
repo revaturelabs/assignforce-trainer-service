@@ -32,21 +32,21 @@ public class CertTest {
 	@Test
 	public void certTest2() {
 		Cert c1 = new Cert(3, "Java");
-		assertTrue(c1.getCertId() == 3);
+		assertTrue(c1.getId() == 3);
 	}
 	
 	@Test
 	public void getSetCertIdTest() {
 		Cert c1 = new Cert();
-		c1.setCertId(49);
-		assertTrue(c1.getCertId() == 49);
+		c1.setId(49);
+		assertTrue(c1.getId() == 49);
 	}
 	
 	@Test
 	public void getSetCertNameTest() {
 		Cert c1 = new Cert();
-		c1.setCertName("SQL");
-		assertTrue(c1.getCertName().equals("SQL"));
+		c1.setName("SQL");
+		assertTrue(c1.getName().equals("SQL"));
 	}
 	
 	@Test
@@ -57,12 +57,12 @@ public class CertTest {
 		String certName2 = "C#";
 		Cert c1 = new Cert(id1, certName1);
 		Cert c2 = new Cert();
-		c2.setCertName(certName2);
-		c2.setCertId(id2);
-		assertEquals(certName2, c2.getCertName());
-		assertEquals(certName1, c1.getCertName());
-		assertEquals(id1, c1.getCertId());
-		assertEquals(id2, c2.getCertId());
+		c2.setName(certName2);
+		c2.setId(id2);
+		assertEquals(certName2, c2.getName());
+		assertEquals(certName1, c1.getName());
+		assertEquals(id1, c1.getId());
+		assertEquals(id2, c2.getId());
 	}
 
 	@Test
@@ -76,14 +76,14 @@ public class CertTest {
 		Cert c1 = new Cert(id1, certName1);
 		Cert c2 = new Cert();
 		Cert c3 = new Cert(id3, certName2);
-		c2.setCertId(id2);
-		c2.setCertName(certName3);
-		assertEquals(certName3, c2.getCertName());
-		assertEquals(id1, c1.getCertId());
-		assertEquals(id3, c3.getCertId());
-		assertEquals(id2, c2.getCertId());
-		assertEquals(certName2, c3.getCertName());
-		assertEquals(certName1, c1.getCertName());
+		c2.setId(id2);
+		c2.setName(certName3);
+		assertEquals(certName3, c2.getName());
+		assertEquals(id1, c1.getId());
+		assertEquals(id3, c3.getId());
+		assertEquals(id2, c2.getId());
+		assertEquals(certName2, c3.getName());
+		assertEquals(certName1, c1.getName());
 	}
 
 }
