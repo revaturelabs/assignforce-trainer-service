@@ -62,16 +62,16 @@ public class CertServiceImplTest {
 		Optional<Cert> op1 = Optional.ofNullable(c1);
 		Mockito.when(certRepository.findById(3)).thenReturn(op1);
 		Optional<Cert> opTest = certService.findById(3);
-		assertTrue(opTest.get().getCertId() == 3);
+		assertTrue(opTest.get().getId() == 3);
 	}
 	
 	@Test
 	public void updateTest() {
 		Cert c1 = new Cert(1, "AWS");
-		c1.setCertName("Angular");
+		c1.setName("Angular");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		Cert cTest = certService.update(c1);
-		assertTrue(cTest.getCertName().equals("Angular"));
+		assertTrue(cTest.getName().equals("Angular"));
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public class CertServiceImplTest {
 		Cert c1 = new Cert(1, "Hibernate");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		Cert cTest = certService.create(c1);
-		assertTrue(cTest.getCertId() == 1 && cTest.getCertName().equals("Hibernate"));
+		assertTrue(cTest.getId() == 1 && cTest.getName().equals("Hibernate"));
 	}
 	
 	@Test

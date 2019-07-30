@@ -1,7 +1,8 @@
 package com.revature.assignforce.messaging.listeners;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.assignforce.SkillMessage;
+import com.revature.assignforce.beans.SkillMessage;
+
 import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.repos.SkillRepository;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class AddSkillsMessageListener implements SkillsMessageListener {
         LOG.info("Received -- " + message);
         Map<String, String> messageMap = new ObjectMapper().readValue(message, Map.class);
         SkillMessage sm = new ObjectMapper().readValue(messageMap.get("Message"), SkillMessage.class);
-        SkillIdHolder s = new SkillIdHolder(sm.getSkillId());
+        SkillIdHolder s = new SkillIdHolder(sm.getId());
         skillRepository.save(s);
     }
 }

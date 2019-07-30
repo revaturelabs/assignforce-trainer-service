@@ -19,35 +19,35 @@ public class Cert {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cert")
 	@SequenceGenerator(name = "cert", sequenceName = "cert_seq", allocationSize = 1)
 	@Column(name = "CERT_ID")
-	private int certId;
+	private int id;
 
 	@Column(name = "CERT_NAME")
-	private String certName;
+	private String name;
 
 	public Cert() {
 
 	}
 
-	public Cert(int certId, String certName) {
+	public Cert(int id, String name) {
 		super();
-		this.certId = certId;
-		this.certName = certName;
+		this.id = id;
+		this.name = name;
 	}
 
-	public int getCertId() {
-		return certId;
+	public int getId() {
+		return id;
 	}
 
-	public void setCertId(int certId) {
-		this.certId = certId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getCertName() {
-		return certName;
+	public String getName() {
+		return name;
 	}
 
-	public void setCertName(String certName) {
-		this.certName = certName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

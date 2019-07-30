@@ -18,7 +18,7 @@
 //
 //	@HystrixCommand(fallbackMethod = "findSkillFallback")
 //	public boolean findSkill(SkillIdHolder skillIdHolder) {
-//		restTemplate.getForEntity(gatewayUrl + skillUri + skillIdHolder.getSkillId(), String.class);
+//		restTemplate.getForEntity(gatewayUrl + skillUri + skillIdHolder.getId(), String.class);
 //		return true;
 //	}
 //

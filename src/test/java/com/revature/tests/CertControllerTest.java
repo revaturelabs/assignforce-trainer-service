@@ -70,7 +70,7 @@ public class CertControllerTest {
 		Optional<Cert> op1 = Optional.ofNullable(c1);
 		Mockito.when(certRepository.findById(3)).thenReturn(op1);
 		ResponseEntity<Cert> reTest = certController.getById(3);
-		assertTrue(reTest.getBody().getCertId() == 3 && reTest.getStatusCode() == HttpStatus.OK);
+		assertTrue(reTest.getBody().getId() == 3 && reTest.getStatusCode() == HttpStatus.OK);
 	}
 	
 	@Test
@@ -84,7 +84,7 @@ public class CertControllerTest {
 		Cert c1 = new Cert(18, "Perl");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		ResponseEntity<Cert> reTest = certController.add(c1);
-		assertTrue(reTest.getBody().getCertId() == 18 && reTest.getStatusCode() == HttpStatus.CREATED);
+		assertTrue(reTest.getBody().getId() == 18 && reTest.getStatusCode() == HttpStatus.CREATED);
 	}
 	
 	@Test
@@ -97,16 +97,16 @@ public class CertControllerTest {
 	@Test
 	public void updateTestCreated() {
 		Cert c1 = new Cert(18, "Perl");
-		c1.setCertName("C");
+		c1.setName("C");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		ResponseEntity<Cert> reTest = certController.update(c1);
-		assertTrue(reTest.getBody().getCertName().equals("C") && reTest.getStatusCode() == HttpStatus.CREATED);
+		assertTrue(reTest.getBody().getName().equals("C") && reTest.getStatusCode() == HttpStatus.CREATED);
 	}
 	
 	@Test
 	public void updateTestBadRequest() {
 		Cert c1 = new Cert(14, "C++");
-		c1.setCertName("D");
+		c1.setName("D");
 		ResponseEntity<Cert> reTest = certController.update(c1);
 		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
 	}
