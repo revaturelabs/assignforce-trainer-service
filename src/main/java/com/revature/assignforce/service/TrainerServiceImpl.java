@@ -84,6 +84,11 @@ public class TrainerServiceImpl implements TrainerService {
 		return trainerRepo.findByPreferredLocation(preferredLocation);
 	}
 
+	@Override
+	public List<Trainer> findBySkills(int skill_id) {
+		return trainerRepo.findBySkills(skill_id);
+	}
+
 //	private Trainer validateReferences(Trainer trainer) {
 //		trainer = findLocationCommand.findLocation(trainer);
 //		trainer.setSkills(trainer.getSkills().stream().filter((skillIdHolder) -> findSkillsCommand.findSkill(skillIdHolder)).collect(Collectors.toSet()));

@@ -17,5 +17,7 @@ public interface TrainerService {
 	void delete(int id);
 	Optional<Trainer> findByEmail(String email);
 	List<Trainer> findByPreferredLocation(Integer preferredLocation);
+
+	List<Trainer> findBySkills(int skill_id);
 	
 }
