@@ -266,4 +266,60 @@ public class TrainerServiceImplTest {
 		assertTrue(tlist2.get(i-1) == t2);	
 	}
 
+	@Test
+	public void lastNameTest() {
+		String lastName = "Wick";
+		Trainer t1 = new Trainer();
+		Trainer t2 = new Trainer();
+		t1.setId(1);
+		t2.setId(2);
+		t1.setLastName("Wick");
+		t2.setLastName("Ketchum");
+		List<Trainer> testList = new ArrayList<>();
+		testList.add(t1);
+		testList.add(t2);
+		Mockito.when(trainerRepository.findByLastName(lastName)).thenReturn(testList);
+		List<Trainer> testList1 = trainerService.findByLastName(lastName);
+		assertTrue(testList1.get(0) == t1);
+	}
+
+	@Test
+	public void firstAndLastNameTest() {
+		String firstName = "John";
+		String lastName = "Wick";
+		Trainer t1 = new Trainer();
+		Trainer t2 = new Trainer();
+		t1.setId(1);
+		t2.setId(2);
+		t1.setFirstName("John");
+		t1.setLastName("Wick");
+		t2.setFirstName("Ash");
+		t2.setLastName("Ketchum");
+		List<Trainer> testList = new ArrayList<>();
+		testList.add(t1);
+		testList.add(t2);
+		Mockito.when(trainerRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(testList);
+		List<Trainer> testList1 = trainerService.findByFirstAndLastName(firstName, lastName);
+		assertTrue(testList1.get(0) == t1);
+	}
+
+	@Test
+	public void firstNameTest() {
+		String firstName = "John";
+		String lastName = "Wick";
+		Trainer t1 = new Trainer();
+		Trainer t2 = new Trainer();
+		t1.setId(1);
+		t2.setId(2);
+		t1.setFirstName("John");
+		t1.setLastName("Wick");
+		t2.setFirstName("Ash");
+		t2.setLastName("Ketchum");
+		List<Trainer> testList = new ArrayList<>();
+		testList.add(t1);
+		testList.add(t2);
+		Mockito.when(trainerRepository.findByFirstName(firstName)).thenReturn(testList);
+		List<Trainer> testList1 = trainerService.findByFirstName(firstName);
+		assertTrue(testList1.get(0) == t1);
+	}
 }
