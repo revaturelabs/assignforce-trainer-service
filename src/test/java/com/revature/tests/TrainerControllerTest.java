@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 //import com.revature.assignforce.commands.FindLocationCommand;
@@ -325,6 +326,49 @@ public class TrainerControllerTest {
 		Mockito.doNothing().when(trainerRepository).deleteById(89);
 		ResponseEntity<Trainer> reTest = trainerController.delete(89);
 		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
+	}
+
+	//Testing getBySkill
+	@Test
+	public void getBySkillNotFound() {
+		ResponseEntity<List<Trainer>> test = trainerController.getBySkill(1);
+		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+
+	//Testing getBySkill
+	@Test
+	public void getBySkill() {
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer(1, "John", "Wick", false, 2, unavailabilitySet, "jWick123@gmail.com", skillSet,
+				certSet, "I am a Software Developer", "www.linkedin.com");
+		Trainer t2 = new Trainer(2, "James", "Avery", true, 4, unavailabilitySet, "jAvery@yahoo.com", skillSet, certSet,
+				"I am a Lawyer", "www.linkedin.com");
+		List<Trainer> trainerList = new ArrayList<Trainer>();
+		trainerList.add(t1);
+		trainerList.add(t2);
+		Mockito.when(trainerRepository.findBySkills(10)).thenReturn(trainerList);
+		ResponseEntity<List<Trainer>> respTrainers = trainerController.getBySkill(10);
+		assertEquals(true, (respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 2));
 	}
 	
 }

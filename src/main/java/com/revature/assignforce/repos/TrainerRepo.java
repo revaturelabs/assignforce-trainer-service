@@ -12,6 +12,7 @@ public interface TrainerRepo extends JpaRepository<Trainer, Integer>{
 
 	Optional<Trainer> findByEmail(String email);
 
-	List<Trainer> findByPreferredLocation(Integer preferredLocation);	
-	
+	List<Trainer> findByPreferredLocation(Integer preferredLocation);
+
+    List<Trainer> findBySkills(int skill_id);
 }

@@ -48,6 +48,16 @@ public class TrainerController {
 		return new ResponseEntity<>(t.get(), HttpStatus.OK);
 	}
 
+	//findBySkill
+	@GetMapping(value = "skill/{skill}")
+	public ResponseEntity<List<Trainer>> getBySkill (@PathVariable int skill_id) {
+		List<Trainer> trainers = trainerService.findBySkills(skill_id);
+		if (trainers.isEmpty() || trainers == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(trainers, HttpStatus.OK);
+	}
+
 	// create
 	@PostMapping
 	public ResponseEntity<Trainer> add(@RequestBody Trainer t) {
