@@ -19,5 +19,8 @@ public interface TrainerService {
 	List<Trainer> findByPreferredLocation(Integer preferredLocation);
 
 	List<Trainer> findBySkills(int skill_id);
+	List<Trainer> findByLastName (String lastName);
+	List<Trainer> findByFirstAndLastName (String firstName, String lastName);
+	List<Trainer> findByFirstName (String firstName);
 	
 }

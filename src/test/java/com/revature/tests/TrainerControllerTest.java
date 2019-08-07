@@ -370,5 +370,125 @@ public class TrainerControllerTest {
 		ResponseEntity<List<Trainer>> respTrainers = trainerController.getBySkill(10);
 		assertEquals(true, (respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 2));
 	}
-	
+
+	//Testing getByLastName
+	@Test
+	public void getByLastNameNotFound() {
+		ResponseEntity<List<Trainer>> test = trainerController.getByLastName("Wick");
+		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+
+	//Testing getByLastName
+	@Test
+	public void getByLastName() {
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer(1, "John", "Wick", false, 2, unavailabilitySet, "jWick123@gmail.com", skillSet,
+				certSet, "I am a Software Developer", "www.linkedin.com");
+		List<Trainer> trainerList = new ArrayList<Trainer>();
+		trainerList.add(t1);
+		Mockito.when(trainerRepository.findByLastName("Wick")).thenReturn(trainerList);
+		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByLastName("Wick");
+		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+
+	}
+
+	@Test
+	public void getByFirstAndLastName() {
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer(1, "John", "Wick", false, 2, unavailabilitySet, "jWick123@gmail.com", skillSet,
+				certSet, "I am a Software Developer", "www.linkedin.com");
+		List<Trainer> trainerList = new ArrayList<Trainer>();
+		trainerList.add(t1);
+		Mockito.when(trainerRepository.findByFirstNameAndLastName("John", "Wick")).thenReturn(trainerList);
+		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByFirstAndLastName("John", "Wick");
+		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+
+	}
+
+	@Test
+	public void getByFirstAndLastNameNotFound() {
+		ResponseEntity<List<Trainer>> test = trainerController.getByFirstAndLastName("Ash", "Ketchum");
+		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+
+	@Test
+	public void getByFirstNameNotFound() {
+		ResponseEntity<List<Trainer>> test = trainerController.getByFirstName("John");
+		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+	}
+
+	@Test
+	public void getByFirstName() {
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer(1, "John", "Wick", false, 2, unavailabilitySet, "jWick123@gmail.com", skillSet,
+				certSet, "I am a Software Developer", "www.linkedin.com");
+		List<Trainer> trainerList = new ArrayList<Trainer>();
+		trainerList.add(t1);
+		Mockito.when(trainerRepository.findByFirstName("John")).thenReturn(trainerList);
+		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByFirstName("John");
+		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+
+	}
+
+
 }
