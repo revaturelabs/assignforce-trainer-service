@@ -62,7 +62,7 @@ public class TrainerController {
 	@GetMapping(value = "lastName/{lastName}")
 	public ResponseEntity<List<Trainer>> getByLastName (@PathVariable String lastName) {
 		List<Trainer> trainers = trainerService.findByLastName(lastName);
-		if (trainers.isEmpty() || trainers == null) {
+		if (trainers == null || trainers.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
