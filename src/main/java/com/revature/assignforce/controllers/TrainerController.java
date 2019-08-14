@@ -49,7 +49,7 @@ public class TrainerController {
 	}
 
 	//findBySkill
-	@GetMapping(value = "skill/{skill}")
+	@GetMapping(value = "skill/{skill_id}")
 	public ResponseEntity<List<Trainer>> getBySkill (@PathVariable int skill_id) {
 		List<Trainer> trainers = trainerService.findBySkills(skill_id);
 		if (trainers.isEmpty() || trainers == null){
