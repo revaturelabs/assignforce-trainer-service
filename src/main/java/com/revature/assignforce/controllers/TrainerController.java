@@ -52,7 +52,7 @@ public class TrainerController {
 	@GetMapping(value = "skill/{skill_id}")
 	public ResponseEntity<List<Trainer>> getBySkill (@PathVariable int skill_id) {
 		List<Trainer> trainers = trainerService.findBySkills(skill_id);
-		if (trainers.isEmpty() || trainers == null){
+		if (trainers == null || trainers.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
@@ -62,7 +62,7 @@ public class TrainerController {
 	@GetMapping(value = "lastName/{lastName}")
 	public ResponseEntity<List<Trainer>> getByLastName (@PathVariable String lastName) {
 		List<Trainer> trainers = trainerService.findByLastName(lastName);
-		if (trainers.isEmpty() || trainers == null) {
+		if (trainers == null || trainers.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
@@ -73,7 +73,7 @@ public class TrainerController {
 	public ResponseEntity<List<Trainer>> getByFirstAndLastName (@PathVariable String firstName,
 														  @PathVariable String lastName) {
 		List<Trainer> trainers = trainerService.findByFirstAndLastName(firstName, lastName);
-		if (trainers.isEmpty() || trainers == null) {
+		if (trainers == null || trainers.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class TrainerController {
 	@GetMapping(value = "firstName/{firstName}")
 	public ResponseEntity<List<Trainer>> getByFirstName (@PathVariable String firstName) {
 		List<Trainer> trainers = trainerService.findByFirstName(firstName);
-		if (trainers.isEmpty() || trainers == null) {
+		if (trainers == null || trainers.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
