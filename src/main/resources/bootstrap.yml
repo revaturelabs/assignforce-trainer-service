@@ -1,11 +1,15 @@
 spring:
+  application:
+    name: trainer-service
   profiles:
-    active: ${ACTIVE_PROFILES:default}
+    active: ${PROFILE:default}
   cloud:
     config:
       uri: ${CONFIG_URL:http://localhost:8888}
-  application:
-    name: trainer-service
+      name: trainer-service
+      profile: ${PROFILE}
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
 management:
   endpoints:
     web:
