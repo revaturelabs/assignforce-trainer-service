@@ -1,0 +1,11 @@
+---
+applications:
+- name: trainer-service
+  memory: 2048M
+  timeout: 120
+  services:
+  - discovery-rev
+  - config-rev
+  docker:
+    image: ajduet/af-trainers:latest
+    username: ajduet
