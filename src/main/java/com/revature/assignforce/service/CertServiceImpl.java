@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.revature.assignforce.beans.Cert;
@@ -13,6 +14,13 @@ import com.revature.assignforce.repos.CertRepo;
 
 @Service
 @Transactional
+
+/*
+ * Only a User with an SVP role should have access to these
+ * methods
+ * 
+ */
+//@PreAuthorize("hasRole('SVP')")
 public class CertServiceImpl implements CertService {
 
 	@Autowired
