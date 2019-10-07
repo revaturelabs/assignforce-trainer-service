@@ -4,6 +4,7 @@ import com.revature.assignforce.beans.SkillIdHolder;
 import com.revature.assignforce.beans.Trainer;
 import com.revature.assignforce.repos.TrainerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,11 @@ import java.util.Set;
 
 @Service
 @Transactional
+/*
+ * Only a user with an SVP role should have access
+ * to these methods.
+ */
+//@PreAuthorize("hasRole('SVP')")
 public class TrainerServiceImpl implements TrainerService {
 
 	@Autowired
@@ -82,26 +88,6 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public List<Trainer> findByPreferredLocation(Integer preferredLocation) {
 		return trainerRepo.findByPreferredLocation(preferredLocation);
-	}
-
-	@Override
-	public List<Trainer> findBySkills(int skill_id) {
-		return trainerRepo.findBySkills(skill_id);
-	}
-
-	@Override
-	public List<Trainer> findByLastName(String lastName) {
-		return trainerRepo.findByLastName(lastName);
-	}
-
-	@Override
-	public List<Trainer> findByFirstAndLastName(String firstName, String lastName) {
-		return trainerRepo.findByFirstNameAndLastName(firstName, lastName);
-	}
-
-	@Override
-	public List<Trainer> findByFirstName(String firstName) {
-		return trainerRepo.findByFirstName (firstName);
 	}
 
 //	private Trainer validateReferences(Trainer trainer) {
