@@ -32,14 +32,14 @@ public class SkillIdHolderTest {
 	@Test
 	public void skillIdHolderTest2() {
 		SkillIdHolder s1 = new SkillIdHolder(3);
-		assertTrue(s1.getId() == 3);
+		assertEquals(s1.getId() , 3);
 	}
 	
 	@Test
 	public void getSetSkillIdTest() {
 		SkillIdHolder s1 = new SkillIdHolder();
 		s1.setId(21);
-		assertTrue(s1.getId() == 21);
+		assertEquals(s1.getId() , 21);
 	}
 
 }

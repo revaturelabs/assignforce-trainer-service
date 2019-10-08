@@ -1,14 +1,16 @@
 package com.revature.tests;
 
-import com.revature.assignforce.beans.Cert;
-import com.revature.assignforce.beans.SkillIdHolder;
-import com.revature.assignforce.beans.Trainer;
-import com.revature.assignforce.beans.Unavailability;
-import com.revature.assignforce.controllers.TrainerController;
-import com.revature.assignforce.repos.SkillRepository;
-import com.revature.assignforce.repos.TrainerRepo;
-import com.revature.assignforce.service.TrainerService;
-import com.revature.assignforce.service.TrainerServiceImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,14 +22,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.revature.assignforce.beans.Cert;
+import com.revature.assignforce.beans.SkillIdHolder;
+import com.revature.assignforce.beans.Trainer;
+import com.revature.assignforce.beans.Unavailability;
+import com.revature.assignforce.controllers.TrainerController;
+import com.revature.assignforce.repos.SkillRepository;
+import com.revature.assignforce.repos.TrainerRepo;
+import com.revature.assignforce.service.TrainerService;
+import com.revature.assignforce.service.TrainerServiceImpl;
 
 //import com.revature.assignforce.commands.FindLocationCommand;
 //import com.revature.assignforce.commands.FindSkillsCommand;
@@ -38,6 +41,8 @@ public class TrainerControllerTest {
 
 	@Configuration
 	static class TrainerServiceTestContextConfiguration {
+		
+		//
 		@Bean
 		public TrainerService TrainerService() {
 			return new TrainerServiceImpl();
@@ -81,34 +86,59 @@ public class TrainerControllerTest {
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
-		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
-				"Family matter");
-		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
-				"Medical check up");
+		
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L), "Family matter");
+		
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L), "Medical check up");
+		
 		SkillIdHolder s1 = new SkillIdHolder(7);
+		
 		SkillIdHolder s2 = new SkillIdHolder(8);
+		
 		SkillIdHolder s3 = new SkillIdHolder(10);
+		
 		HashSet<Cert> certSet = new HashSet<Cert>();
+		
 		certSet.add(c1);
+		
 		certSet.add(c2);
+		
 		certSet.add(c3);
+		
 		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		
 		unavailabilitySet.add(u1);
+		
 		unavailabilitySet.add(u2);
+		
 		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		
 		skillSet.add(s1);
+		
 		skillSet.add(s2);
+		
 		skillSet.add(s3);
+		
 		Trainer t1 = new Trainer(1, "John", "Wick", false, 2, unavailabilitySet, "jWick123@gmail.com", skillSet,
 				certSet, "I am a Software Developer", "www.linkedin.com");
-		Trainer t2 = new Trainer(2, "James", "Avery", true, 4, unavailabilitySet, "jAvery@yahoo.com", skillSet, certSet,
-				"I am a Lawyer", "www.linkedin.com");
+		
+		
+		Trainer t2 = new Trainer(2, "James", "Avery", true, 4, unavailabilitySet, "jAvery@yahoo.com", skillSet, certSet,"I am a Lawyer", "www.linkedin.com");
+		
 		List<Trainer> trainerList = new ArrayList<Trainer>();
+		
 		trainerList.add(t1);
+		
 		trainerList.add(t2);
+		
 		Mockito.when(trainerRepository.findAll()).thenReturn(trainerList);
+		
 		List<Trainer> testList = trainerController.getAll();
-		assertTrue(testList.size() == 2);
+		
+		assertEquals( testList.size() , 2);
+	
+		
+		verify(trainerRepository).findAll();
 	}
 
 	@Test
@@ -139,13 +169,13 @@ public class TrainerControllerTest {
 		Optional<Trainer> op1 = Optional.ofNullable(t1);
 		Mockito.when(trainerRepository.findById(5)).thenReturn(op1);
 		ResponseEntity<Trainer> reTest = trainerController.getById(5);
-		assertTrue(reTest.getBody().getId() == 5 && reTest.getStatusCode() == HttpStatus.OK);
+		assertEquals(reTest.getBody().getId() , 5 ); assertEquals(reTest.getStatusCode(), HttpStatus.OK);
 	}
 
 	@Test
 	public void getByIdTestNotFound() {
 		ResponseEntity<Trainer> reTest = trainerController.getById(12);
-		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(reTest.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 
 	@Test
@@ -176,13 +206,13 @@ public class TrainerControllerTest {
 		Optional<Trainer> op1 = Optional.ofNullable(t1);
 		Mockito.when(trainerRepository.findByEmail("bWilly@gmail.com")).thenReturn(op1);
 		ResponseEntity<Trainer> reTest = trainerController.getByEmail("bWilly@gmail.com");
-		assertTrue(reTest.getBody().getId() == 1 && reTest.getStatusCode() == HttpStatus.OK);
+		assertEquals(reTest.getBody().getId() , 1 ); assertEquals(reTest.getStatusCode() , HttpStatus.OK);
 	}
 
 	@Test
 	public void getByEmailTestNotFound() {
 		ResponseEntity<Trainer> reTest = trainerController.getByEmail("someName@yahoo.com");
-		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(reTest.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 
 	@Test
@@ -214,7 +244,7 @@ public class TrainerControllerTest {
 //		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
-		assertTrue(reTest.getBody().getId() == 12 && reTest.getStatusCode() == HttpStatus.CREATED);
+		assertEquals(reTest.getBody().getId() , 12 ); assertEquals (reTest.getStatusCode() , HttpStatus.CREATED);
 	}
 
 	@Test
@@ -245,7 +275,7 @@ public class TrainerControllerTest {
 //		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.add(t1);
-		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
+		assertEquals(reTest.getStatusCode() , HttpStatus.BAD_REQUEST);
 	}
 
 	@Test
@@ -278,8 +308,8 @@ public class TrainerControllerTest {
 //		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
-		assertTrue(reTest.getBody().getEmail().equals("duelistKing@gmail.com")
-				&& reTest.getStatusCode() == HttpStatus.CREATED);
+		assertEquals(reTest.getBody().getEmail(), ("duelistKing@gmail.com"));
+		assertEquals(reTest.getStatusCode() , HttpStatus.CREATED);
 	}
 
 	@Test
@@ -311,28 +341,28 @@ public class TrainerControllerTest {
 //		Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 
 		ResponseEntity<Trainer> reTest = trainerController.update(t1);
-		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
+		assertEquals(reTest.getStatusCode() ,HttpStatus.BAD_REQUEST);
 	}
 
 	@Test
 	public void deleteTestNotFound() {
 		Mockito.when(trainerController.delete(0)).thenReturn(null);
 		ResponseEntity<Trainer> reTest = trainerController.delete(0);
-		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(reTest.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 	
 	@Test
 	public void deleteTestOk() {
 		Mockito.doNothing().when(trainerRepository).deleteById(89);
 		ResponseEntity<Trainer> reTest = trainerController.delete(89);
-		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
+		assertEquals(reTest.getStatusCode() , HttpStatus.OK);
 	}
 
 	//Testing getBySkill
 	@Test
 	public void getBySkillNotFound() {
 		ResponseEntity<List<Trainer>> test = trainerController.getBySkill(1);
-		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(test.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 
 	//Testing getBySkill
@@ -368,14 +398,16 @@ public class TrainerControllerTest {
 		trainerList.add(t2);
 		Mockito.when(trainerRepository.findBySkills(10)).thenReturn(trainerList);
 		ResponseEntity<List<Trainer>> respTrainers = trainerController.getBySkill(10);
-		assertEquals(true, (respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 2));
+		assertEquals( respTrainers.getStatusCode(), HttpStatus.OK); 
+		assertEquals( respTrainers.getBody().size() , 2);
+				
 	}
 
 	//Testing getByLastName
 	@Test
 	public void getByLastNameNotFound() {
 		ResponseEntity<List<Trainer>> test = trainerController.getByLastName("Wick");
-		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(test.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 
 	//Testing getByLastName
@@ -408,7 +440,8 @@ public class TrainerControllerTest {
 		trainerList.add(t1);
 		Mockito.when(trainerRepository.findByLastName("Wick")).thenReturn(trainerList);
 		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByLastName("Wick");
-		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+		assertEquals(respTrainers.getStatusCode() , HttpStatus.OK ); 
+		assertEquals(respTrainers.getBody().size() , 1);
 
 	}
 
@@ -441,20 +474,20 @@ public class TrainerControllerTest {
 		trainerList.add(t1);
 		Mockito.when(trainerRepository.findByFirstNameAndLastName("John", "Wick")).thenReturn(trainerList);
 		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByFirstAndLastName("John", "Wick");
-		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+		assertEquals(respTrainers.getStatusCode(), HttpStatus.OK); assertEquals(respTrainers.getBody().size() , 1);
 
 	}
 
 	@Test
 	public void getByFirstAndLastNameNotFound() {
 		ResponseEntity<List<Trainer>> test = trainerController.getByFirstAndLastName("Ash", "Ketchum");
-		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(test.getStatusCode(), HttpStatus.NOT_FOUND);
 	}
 
 	@Test
 	public void getByFirstNameNotFound() {
 		ResponseEntity<List<Trainer>> test = trainerController.getByFirstName("John");
-		assertTrue(test.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(test.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 
 	@Test
@@ -486,7 +519,7 @@ public class TrainerControllerTest {
 		trainerList.add(t1);
 		Mockito.when(trainerRepository.findByFirstName("John")).thenReturn(trainerList);
 		ResponseEntity<List<Trainer>> respTrainers = trainerController.getByFirstName("John");
-		assertTrue(respTrainers.getStatusCode()== HttpStatus.OK && respTrainers.getBody().size() == 1);
+		assertEquals(respTrainers.getStatusCode(), HttpStatus.OK); assertEquals(respTrainers.getBody().size() , 1 );
 
 	}
 

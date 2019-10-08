@@ -59,14 +59,14 @@ public class TrainerTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(1, "Denzel", "Washington", true, 1, unavailabilitySet, 
 				"dWashington@gmail.com", skillSet, certSet, "I am a Professional", "www.linkedin.com");
-		assertTrue(t1.getId() == 1);
+		assertEquals(t1.getId(), 1);
 	}
 	
 	@Test
 	public void getSetIdTest() {
 		Trainer t1 = new Trainer();
 		t1.setId(7);
-		assertTrue(t1.getId() == 7);
+		assertEquals(t1.getId(), 7);
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class TrainerTest {
 	public void getSetPreferredLocationTest() {
 		Trainer t1 = new Trainer();
 		t1.setPreferredLocation(new Integer(4));
-		assertTrue(t1.getPreferredLocation() == 4);
+		assertTrue(t1.getPreferredLocation().equals(new Integer(4)));
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class TrainerTest {
 		unavailabilitySet.add(u2);
 		Trainer t1 = new Trainer();
 		t1.setUnavailabilities(unavailabilitySet);
-		assertTrue(t1.getUnavailabilities().size() == 2);
+		assertEquals(t1.getUnavailabilities().size() , 2);
 	}
 	
 	@Test
@@ -127,7 +127,7 @@ public class TrainerTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer();
 		t1.setSkills(skillSet);
-		assertTrue(t1.getSkills().size() == 3);
+		assertEquals(t1.getSkills().size() , 3);
 	}
 	
 	@Test
@@ -157,7 +157,7 @@ public class TrainerTest {
 		certSet.add(c3);
 		Trainer t1 = new Trainer();
 		t1.setCertifications(certSet);
-		assertTrue(t1.getCertifications().size() == 3);
+		assertEquals(t1.getCertifications().size() , 3);
 	}
 	
 	@Test

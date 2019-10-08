@@ -1,4 +1,4 @@
-package com.revature.tests;
+	package com.revature.tests;
 
 import com.revature.assignforce.beans.Cert;
 import com.revature.assignforce.beans.SkillIdHolder;
@@ -25,6 +25,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 //import com.revature.assignforce.commands.FindLocationCommand;
 //import com.revature.assignforce.commands.FindSkillsCommand;
@@ -66,6 +67,8 @@ public class TrainerServiceImplTest {
 	private TrainerService trainerService;
 	@Autowired
 	private TrainerRepo trainerRepository;
+	
+
 
 //	@Autowired
 //	private FindLocationCommand findLocationCommand;
@@ -102,7 +105,9 @@ public class TrainerServiceImplTest {
 		trainerList.add(t2);
 		Mockito.when(trainerRepository.findAll()).thenReturn(trainerList);
 		List<Trainer> testList = trainerService.getAll();
-		assertTrue(testList.size() == 2);
+		Integer two = 2;
+		Integer size = testList.size();
+		assertTrue(size.equals(two));
 	}
 
 	@Test
@@ -130,6 +135,7 @@ public class TrainerServiceImplTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(1, "Denzel", "Washington", true, 1, unavailabilitySet, "dWashington@gmail.com",
 				skillSet, certSet, "I am a Professional", "www.linkedin.com");
+		
 		Optional<Trainer> op1 = Optional.ofNullable(t1);
 		Mockito.when(trainerRepository.findById(1)).thenReturn(op1);
 		Optional<Trainer> opTest = trainerService.findById(1);
@@ -207,6 +213,8 @@ public class TrainerServiceImplTest {
 
 	@Test
 	public void createTest() {
+		//Generate a dummy trainer
+//		-----------------------------------------------------------------------------------------------------------------
 		Cert c1 = new Cert(1, "AWS");
 		Cert c2 = new Cert(3, "Java");
 		Cert c3 = new Cert(5, "SQL");
@@ -230,17 +238,99 @@ public class TrainerServiceImplTest {
 		skillSet.add(s3);
 		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
 				certSet, "I am a Duelist", "www.linkedin.com");
-
+//		----------------------------------------------------------------------------------------------------------------------------
 		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
 //        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
 		Trainer testTrainer = trainerService.create(t1);
-		assertTrue(testTrainer.getId() == 12);
+		Integer twelve = 12;
+		Integer Id = testTrainer.getId();
+		assertTrue(Id.equals(twelve));
+	}
+	
+	
+	@Test
+	public void createTestIfNullSkills() {
+		//Generate a dummy trainer
+//		-----------------------------------------------------------------------------------------------------------------
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		
+		//Skill set is not being used but is instead null
+		
+		//HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		//skillSet.add(s1);
+		//skillSet.add(s2);
+		//skillSet.add(s3);
+		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", null,
+				certSet, "I am a Duelist", "www.linkedin.com");
+//		----------------------------------------------------------------------------------------------------------------------------
+		//trainerRepository.save(t1) is the last method to be executed to be executed 
+		Mockito.when(trainerRepository.save(t1)).thenReturn(t1);
+//        Mockito.when(findLocationCommand.findLocation(t1)).thenReturn(t1);
+		Trainer testTrainer = trainerService.create(t1);
+		Integer twelve = 12;
+		Integer Id = testTrainer.getId();
+		assertTrue(Id.equals(twelve));
 	}
 
 	@Test
 	public void deleteTest() {
+		//This code will test if the  trainer object is not found -- Ruben Lopez 10/1/2019
 		Mockito.doNothing().when(trainerRepository).deleteById(44);
 		trainerService.delete(44);
+		Optional<Trainer> opTest = trainerService.findById(44);
+		assertFalse(opTest.isPresent());
+	}
+	
+	@Test
+	public void deleteTestPositive() {
+		//This code will test if the object exist Ruben Lopez 10/1/2019
+//		----------------------------------------------------------------------------------------------------------------------------
+		
+		Cert c1 = new Cert(1, "AWS");
+		Cert c2 = new Cert(3, "Java");
+		Cert c3 = new Cert(5, "SQL");
+		Unavailability u1 = new Unavailability(1, new Date(1460865600000L), new Date(1466395200000L),
+				"Family matter");
+		Unavailability u2 = new Unavailability(1, new Date(1489982400000L), new Date(1526356800000L),
+				"Medical check up");
+		SkillIdHolder s1 = new SkillIdHolder(7);
+		SkillIdHolder s2 = new SkillIdHolder(8);
+		SkillIdHolder s3 = new SkillIdHolder(10);
+		HashSet<Cert> certSet = new HashSet<Cert>();
+		certSet.add(c1);
+		certSet.add(c2);
+		certSet.add(c3);
+		HashSet<Unavailability> unavailabilitySet = new HashSet<Unavailability>();
+		unavailabilitySet.add(u1);
+		unavailabilitySet.add(u2);
+		HashSet<SkillIdHolder> skillSet = new HashSet<SkillIdHolder>();
+		skillSet.add(s1);
+		skillSet.add(s2);
+		skillSet.add(s3);
+		Trainer t1 = new Trainer(12, "Joey", "Wheeler", true, 31, unavailabilitySet, "monsta14@gmail.com", skillSet,
+				certSet, "I am a Duelist", "www.linkedin.com");
+		Optional<Trainer> op1 = Optional.ofNullable(t1);
+		//This block code is used to instantiate one trainer for testing named op1
+//		---------------------------------------------------------------------------------------------------------------------------------
+		
+		when(trainerRepository.findById(1)).thenReturn(op1);
+		trainerService.delete(1);
 		Optional<Trainer> opTest = trainerService.findById(44);
 		assertFalse(opTest.isPresent());
 	}
@@ -263,7 +353,7 @@ public class TrainerServiceImplTest {
 		tlist.add(t3);
 		Mockito.when(trainerRepository.findByPreferredLocation(i)).thenReturn(tlist);
 		List<Trainer> tlist2 = trainerService.findByPreferredLocation(i);
-		assertTrue(tlist2.get(i-1) == t2);	
+		assertTrue(tlist2.get(i-1).equals(t2));	
 	}
 
 	@Test
@@ -280,7 +370,7 @@ public class TrainerServiceImplTest {
 		testList.add(t2);
 		Mockito.when(trainerRepository.findByLastName(lastName)).thenReturn(testList);
 		List<Trainer> testList1 = trainerService.findByLastName(lastName);
-		assertTrue(testList1.get(0) == t1);
+		assertTrue(testList1.get(0).equals(t1));
 	}
 
 	@Test
@@ -300,7 +390,7 @@ public class TrainerServiceImplTest {
 		testList.add(t2);
 		Mockito.when(trainerRepository.findByFirstNameAndLastName(firstName, lastName)).thenReturn(testList);
 		List<Trainer> testList1 = trainerService.findByFirstAndLastName(firstName, lastName);
-		assertTrue(testList1.get(0) == t1);
+		assertTrue(testList1.get(0).equals(t1));
 	}
 
 	@Test
@@ -320,6 +410,6 @@ public class TrainerServiceImplTest {
 		testList.add(t2);
 		Mockito.when(trainerRepository.findByFirstName(firstName)).thenReturn(testList);
 		List<Trainer> testList1 = trainerService.findByFirstName(firstName);
-		assertTrue(testList1.get(0) == t1);
+		assertTrue(testList1.get(0).equals(t1));
 	}
 }
