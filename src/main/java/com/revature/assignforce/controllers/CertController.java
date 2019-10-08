@@ -19,6 +19,10 @@ import com.revature.assignforce.beans.Cert;
 import com.revature.assignforce.service.CertService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 /**
@@ -28,8 +32,7 @@ import io.swagger.annotations.Api;
  */
 @RestController
 @RequestMapping("/certs")
-@Api(value = "CertController", 
-description = "REST APIs for retrieving, creating, updating and deleting Certification information")
+@Api(value = "CertController")
 public class CertController {
 
 	@Autowired
@@ -40,6 +43,11 @@ public class CertController {
 	 * @return		A List of All Certifications
 	 */
 	@GetMapping
+	@ApiOperation(value = "Get All Certifications", 
+	response = Cert.class,
+	responseContainer="List",
+	tags = "CertController", 
+	nickname= "getAllCertifications")
 	public List<Cert> getAll() {
 		return service.getAll();
 	}
@@ -48,11 +56,17 @@ public class CertController {
 	 * 
 	 * @param 	id	A Certification Id of object to be retrieved
 	 * @return		A Certification ResponseEntity
-	 * @see		Certification
-	 * @see		ResponseEntity
+	 * @see		Cert
+	 *
 	 */
 	@GetMapping(value = "{id}")
-	public ResponseEntity<Cert> getById(@PathVariable int id) {
+	@ApiOperation(value = "Get Certification Information by Id", 
+	response = ResponseEntity.class, 
+	tags = "CertController", nickname= "getCertificationById")
+	@ApiResponses(value = {
+			@ApiResponse(code = 404, message = "Not Found"), 
+            @ApiResponse(code = 200, message = "OK", response = Cert.class)}) 
+	public ResponseEntity<Cert> getById(@ApiParam(name = "id") @PathVariable int id) {
 		Optional<Cert> c = service.findById(id);
 		if (!c.isPresent())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,10 +77,16 @@ public class CertController {
 	 * 
 	 * @param 	c	A New Certification object
 	 * @return		A Certification ResponseEntity
-	 * @see		Certification
-	 * @see		ResponseEntity
+	 * @see		Cert
+	 *
 	 */
 	@PostMapping
+	@ApiOperation(value = "Create New Certification Information", 
+	response = ResponseEntity.class, 
+	tags = "CertController", nickname= "addCertification")
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = "Bad Request"), 
+            @ApiResponse(code = 201, message = "Created", response = Cert.class)})
 	public ResponseEntity<Cert> add(@RequestBody Cert c) {
 		c = service.create(c);
 		if (c == null)
@@ -78,10 +98,16 @@ public class CertController {
 	 * 
 	 * @param 	c	An Edited Certification object
 	 * @return		A Certification ResponseEntity
-	 * @see		Certification
-	 * @see		ResponseEntity
+	 * @see		Cert
+	 *
 	 */
 	@PutMapping
+	@ApiOperation(value = "Update Certification Information", 
+	response = ResponseEntity.class, 
+	tags = "CertController", nickname= "updateCertification")
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = "Bad Request"), 
+            @ApiResponse(code = 201, message = "Created", response = Cert.class)})
 	public ResponseEntity<Cert> update(@RequestBody Cert c) {
 		c = service.update(c);
 		if (c == null)
@@ -93,11 +119,13 @@ public class CertController {
 	 * 
 	 * @param 	id	A Certification Id of object to be deleted
 	 * @return		A Certification ResponseEntity
-	 * @see		Certification
-	 * @see		ResponseEntity
+	 * @see		Cert
+	 *
 	 */
 	@DeleteMapping(value = "{id}")
-	public ResponseEntity<Cert> delete(@PathVariable int id) {
+	@ApiOperation(value = "Delete Certification Information", 
+	tags = "CertController", nickname= "deleteCertification")
+	public ResponseEntity<Cert> delete(@ApiParam(name = "id") @PathVariable int id) {
 		if (service.findById(id) == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		service.delete(id);
