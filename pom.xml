@@ -48,9 +48,9 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-       		<groupId>org.springframework.cloud</groupId>
-       		<artifactId>spring-cloud-starter-openfeign</artifactId>
-   		</dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -72,10 +72,10 @@
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.hynnet</groupId>
 			<artifactId>oracle-driver-ojdbc_g</artifactId>
@@ -97,29 +97,55 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>4.12</version>
-    	</dependency>
-    	
-    	<dependency>
-   			<groupId>org.mockito</groupId>
-   			<artifactId>mockito-core</artifactId>
-   			<version>2.10.0</version>
-   			<scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.10.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.interceptor</groupId>
+			<artifactId>javax.interceptor-api</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
-   		<dependencies>
+		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -135,78 +161,81 @@
 				<scope>import</scope>
 			</dependency>
 
-	       <dependency>
-	           <groupId>org.springframework.cloud</groupId>
-	           <artifactId>spring-cloud-openfeign</artifactId>
-	           <version>2.0.1.BUILD-SNAPSHOT</version>
-	           <type>pom</type>
-	           <scope>import</scope>
-	       </dependency>
-	       
-       		<dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-openfeign</artifactId>
+				<version>2.0.1.BUILD-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>Finchley.M9</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-   		</dependencies>
+
+
+
+		</dependencies>
 	</dependencyManagement>
 
 	<build>
 		<finalName>trainer-service</finalName>
 		<plugins>
-		<!-- Sonar Scanner -->
-		<plugin>
-			<groupId>org.sonarsource.scanner.maven</groupId>
-			<artifactId>sonar-maven-plugin</artifactId>
-			<version>3.6.0.1398</version>
-			<executions>
-				<execution>
-					<phase>verify</phase>
-					<goals>
-						<goal>sonar</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
+			<!-- Sonar Scanner -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.6.0.1398</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>sonar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-		<!-- JaCoCo -->
-		<plugin>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.7.9</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>prepare-agent</goal>
-					</goals>
-				</execution>
-				<execution>
-					<id>report</id>
-					<phase>prepare-package</phase>
-					<goals>
-						<goal>report</goal>
-					</goals>
-					<configuration>
-						<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-						<propertyName>surefireArgLine</propertyName>
-					</configuration>
-				</execution>
-				<execution>
-					<id>post-unit-test</id>
-					<phase>test</phase>
-					<goals>
-						<goal>report</goal>
-					</goals>
-					<configuration>
-						<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-						<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
+			<!-- JaCoCo -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -221,35 +250,112 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- https://mvnrepository.com/artifact/com.github.kongchen/swagger-maven-plugin -->
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.5</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<schemes>http,https</schemes>
+							<basePath>/api</basePath>
+							<locations>
+								<location>com.revature.assignforce.controllers</location>
+							</locations>
+							<info>
+								<title>${project.name}</title>
+								<description>${project.description}. More on:
+									https://dev.assignforce.revaturelabs.com/trainers</description>
+								<contact>
+									<name>August Duet</name>
+									<email>august@revature.com</email>
+								</contact>
+								<version>${project.version}</version>
+							</info>
+							<swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader</swaggerApiReader>
+							<swaggerDirectory>${project.build.directory}/swagger-ui</swaggerDirectory>
+							<!-- Do not use: swaggerFileName, as it will be used as classifier. 
+								In a multi-module project will have different classifier for different APIs -->
+							<outputFormats>json,yaml</outputFormats>
+							<attachSwaggerArtifact>true</attachSwaggerArtifact>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.github.kongchen
+										</groupId>
+										<artifactId>
+											swagger-maven-plugin
+										</artifactId>
+										<versionRange>
+											[3.1.5,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-	
-<repositories>
-   <repository>
-       <id>spring-snapshots</id>
-       <name>Spring Snapshots</name>
-       <url>https://repo.spring.io/libs-snapshot</url>
-       <snapshots>
-           <enabled>true</enabled>
-       </snapshots>
-   </repository>
-   	<repository>
-		<id>spring-libs-release</id>
-		<name>Spring Releases</name>
-		<url>https://repo.spring.io/libs-release</url>
-		<snapshots>
-			<enabled>false</enabled>
-		</snapshots>
-	</repository>
-	<repository>
-		<id>spring-milestones</id>
-		<name>Spring Milestones</name>
-		<url>https://repo.spring.io/libs-milestone</url>
-		<snapshots>
-			<enabled>false</enabled>
-		</snapshots>
-	</repository>
-</repositories>
+
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/libs-snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-libs-release</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 
 </project>

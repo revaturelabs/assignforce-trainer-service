@@ -1,0 +1,8 @@
+com.revature.assignforce
+com.revature.assignforce.beans
+com.revature.assignforce.config
+com.revature.assignforce.controllers
+com.revature.assignforce.messaging.listeners
+com.revature.assignforce.repos
+com.revature.assignforce.service
+com.revature.tests
