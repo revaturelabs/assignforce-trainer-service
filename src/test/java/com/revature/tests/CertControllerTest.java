@@ -1,6 +1,7 @@
 package com.revature.tests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,6 +28,8 @@ import com.revature.assignforce.service.CertServiceImpl;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class CertControllerTest {
+	
+	
 
 	@Configuration
 	static class CertServiceTestContextConfiguration {
@@ -33,6 +37,8 @@ public class CertControllerTest {
 	public CertService certService() {
 		return new CertServiceImpl();
 		}
+	
+	
 	@Bean
 	public CertRepo CertRepo() {
 		return Mockito.mock(CertRepo.class);
@@ -61,7 +67,7 @@ public class CertControllerTest {
 		certList.add(c4);
 		Mockito.when(certRepository.findAll()).thenReturn(certList);
 		List<Cert> testList = certController.getAll();
-		assertTrue(testList.size() == 4);
+		assertEquals(testList.size() , 4);
 	}
 	
 	@Test
@@ -70,13 +76,14 @@ public class CertControllerTest {
 		Optional<Cert> op1 = Optional.ofNullable(c1);
 		Mockito.when(certRepository.findById(3)).thenReturn(op1);
 		ResponseEntity<Cert> reTest = certController.getById(3);
-		assertTrue(reTest.getBody().getId() == 3 && reTest.getStatusCode() == HttpStatus.OK);
+		assertEquals(reTest.getBody().getId() , 3 ); assertEquals( reTest.getStatusCode() , HttpStatus.OK);
+		
 	}
 	
 	@Test
 	public void getByIdTestNotFound() {
 		ResponseEntity<Cert> reTest = certController.getById(29);
-		assertTrue(reTest.getStatusCode() == HttpStatus.NOT_FOUND);
+		assertEquals(reTest.getStatusCode() , HttpStatus.NOT_FOUND);
 	}
 	
 	@Test
@@ -84,14 +91,15 @@ public class CertControllerTest {
 		Cert c1 = new Cert(18, "Perl");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		ResponseEntity<Cert> reTest = certController.add(c1);
-		assertTrue(reTest.getBody().getId() == 18 && reTest.getStatusCode() == HttpStatus.CREATED);
+		assertEquals(reTest.getBody().getId() , 18);
+		assertEquals(reTest.getStatusCode() , HttpStatus.CREATED);
 	}
 	
 	@Test
 	public void addTestBadRequest() {
 		Cert c1 = new Cert(11, "C");
 		ResponseEntity<Cert> reTest = certController.add(c1);
-		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
+		assertEquals(reTest.getStatusCode() , HttpStatus.BAD_REQUEST);
 	}
 	
 	@Test
@@ -100,7 +108,8 @@ public class CertControllerTest {
 		c1.setName("C");
 		Mockito.when(certRepository.save(c1)).thenReturn(c1);
 		ResponseEntity<Cert> reTest = certController.update(c1);
-		assertTrue(reTest.getBody().getName().equals("C") && reTest.getStatusCode() == HttpStatus.CREATED);
+		assertTrue(reTest.getBody().getName().equals("C")); 
+		assertEquals(reTest.getStatusCode() , HttpStatus.CREATED);
 	}
 	
 	@Test
@@ -108,14 +117,30 @@ public class CertControllerTest {
 		Cert c1 = new Cert(14, "C++");
 		c1.setName("D");
 		ResponseEntity<Cert> reTest = certController.update(c1);
-		assertTrue(reTest.getStatusCode() == HttpStatus.BAD_REQUEST);
+		assertEquals(reTest.getStatusCode() , HttpStatus.BAD_REQUEST);
 	}
 	
 	@Test
 	public void deleteTest() {
 		Mockito.doNothing().when(certRepository).deleteById(19);
 		ResponseEntity<Cert> reTest = certController.delete(19);
-		assertTrue(reTest.getStatusCode() == HttpStatus.OK);
+		assertEquals(reTest.getStatusCode(), HttpStatus.OK);
+
+		
+	}
+	
+	@Test
+	public void deleteTestReturns404() {
+		when(certRepository.findById(20)).thenReturn(null);
+		ResponseEntity<Cert> reTest = certController.delete(20);
+		assertEquals(reTest.getStatusCode(), HttpStatus.NOT_FOUND);
+
+		//Cert c1 = new Cert(14, "C++");
+		//Mockito.doNothing().when(certRepository).deleteById(null);
+		
+		
+		//ResponseEntity<Cert> reTest2 = certController.delete(null);
+		//assertEquals(reTest2.getStatusCode(), HttpStatus.NOT_FOUND);
 	}
 
 }

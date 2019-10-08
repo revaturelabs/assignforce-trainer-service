@@ -35,28 +35,28 @@ public class UnavailabilityTest {
 	public void unavailabilityTest2() {
 		Unavailability u1 = new Unavailability(2, new Date(1460865600000L), new Date(1466395200000L),
 				"Family matter");
-		assertTrue(u1.getId() == 2);
+		assertEquals(u1.getId() , 2);
 	}
 	
 	@Test
 	public void getSetIdTest() {
 		Unavailability u1 = new Unavailability();
 		u1.setId(18);
-		assertTrue(u1.getId() == 18);
+		assertEquals(u1.getId() , 18);
 	}
 	
 	@Test
 	public void getSetStartDateTest() {
 		Unavailability u1 = new Unavailability();
 		u1.setStartDate(new Date(1223L));
-		assertTrue(u1.getStartDate().getTime() == 1223L);
+		assertEquals(u1.getStartDate().getTime() , 1223L);
 	}
 	
 	@Test
 	public void getSetEndDateTest() {
 		Unavailability u1 = new Unavailability();
 		u1.setEndDate(new Date(4321L));
-		assertTrue(u1.getEndDate().getTime() == 4321L);
+		assertEquals(u1.getEndDate().getTime(), 4321L);
 	}
 	
 	@Test

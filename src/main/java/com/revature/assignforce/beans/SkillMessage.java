@@ -8,6 +8,7 @@ public class SkillMessage {
     private int id;
 
     public SkillMessage() {
+    	super();
     }
 
     public String getContext() {

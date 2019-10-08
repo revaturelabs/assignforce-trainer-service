@@ -32,14 +32,14 @@ public class CertTest {
 	@Test
 	public void certTest2() {
 		Cert c1 = new Cert(3, "Java");
-		assertTrue(c1.getId() == 3);
+		assertEquals(c1.getId() , 3);
 	}
 	
 	@Test
 	public void getSetCertIdTest() {
 		Cert c1 = new Cert();
 		c1.setId(49);
-		assertTrue(c1.getId() == 49);
+		assertEquals(c1.getId() , 49);
 	}
 	
 	@Test

@@ -10,10 +10,14 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+
+
 @Entity
 @Component
 @Table(name = "CERTS")
 public class Cert {
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cert")

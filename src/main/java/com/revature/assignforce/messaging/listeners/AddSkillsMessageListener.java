@@ -27,7 +27,8 @@ public class AddSkillsMessageListener implements SkillsMessageListener {
         this.skillRepository = skillRepository;
     }
 
-    @Override
+   
+	@Override
     @SqsListener("${app.sqs.queues.add-skill-queue}")
     public void receive(String message) throws Exception{
         LOG.info("Received -- " + message);
