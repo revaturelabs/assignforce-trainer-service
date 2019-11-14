@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +27,15 @@ public class CertController {
 	CertService service;
 
 	@GetMapping
+
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public List<Cert> getAll() {
 		return service.getAll();
 	}
 
 	@GetMapping(value = "{id}")
+
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<Cert> getById(@PathVariable int id) {
 		Optional<Cert> c = service.findById(id);
 		if (!c.isPresent())
@@ -39,6 +44,8 @@ public class CertController {
 	}
 	
 	@PostMapping
+
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Cert> add(@RequestBody Cert c) {
 		c = service.create(c);
 		if (c == null)
@@ -47,6 +54,7 @@ public class CertController {
 	}
 
 	@PutMapping
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Cert> update(@RequestBody Cert c) {
 		c = service.update(c);
 		if (c == null)
@@ -55,6 +63,7 @@ public class CertController {
 	}
 
 	@DeleteMapping(value = "{id}")
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Cert> delete(@PathVariable int id) {
 		if (service.findById(id) == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
