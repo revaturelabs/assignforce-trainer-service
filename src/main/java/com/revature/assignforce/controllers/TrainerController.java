@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,12 +27,14 @@ public class TrainerController {
 
 	// findAll
 	@GetMapping
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public List<Trainer> getAll() {
 		return trainerService.getAll();
 	}
 
 	// findOne
 	@GetMapping(value = "{id}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<Trainer> getById(@PathVariable int id) {
 		Optional<Trainer> t = trainerService.findById(id);
 		if (!t.isPresent())
@@ -41,6 +44,7 @@ public class TrainerController {
 
 	// findby email
 	@GetMapping(value = "email/{email}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<Trainer> getByEmail(@PathVariable String email) {
 		Optional<Trainer> t = trainerService.findByEmail(email);
 		if (!t.isPresent())
@@ -50,6 +54,7 @@ public class TrainerController {
 
 	//findBySkill
 	@GetMapping(value = "skill/{skill_id}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<List<Trainer>> getBySkill (@PathVariable int skill_id) {
 		List<Trainer> trainers = trainerService.findBySkills(skill_id);
 		if (trainers == null || trainers.isEmpty()){
@@ -60,6 +65,7 @@ public class TrainerController {
 
 	//findByLastName
 	@GetMapping(value = "lastName/{lastName}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<List<Trainer>> getByLastName (@PathVariable String lastName) {
 		List<Trainer> trainers = trainerService.findByLastName(lastName);
 		if (trainers == null || trainers.isEmpty()) {
@@ -70,6 +76,7 @@ public class TrainerController {
 
 	//findByFirstNameAndLastName
 	@GetMapping(value = "firstAndLast/{firstName}/{lastName}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<List<Trainer>> getByFirstAndLastName (@PathVariable String firstName,
 														  @PathVariable String lastName) {
 		List<Trainer> trainers = trainerService.findByFirstAndLastName(firstName, lastName);
@@ -81,6 +88,7 @@ public class TrainerController {
 
 	//findByFirstName
 	@GetMapping(value = "firstName/{firstName}")
+	@PreAuthorize("isAuthenticated() and hasAnyRole('SVP of Technology','Trainer','Manager of Technology','Center Head')")
 	public ResponseEntity<List<Trainer>> getByFirstName (@PathVariable String firstName) {
 		List<Trainer> trainers = trainerService.findByFirstName(firstName);
 		if (trainers == null || trainers.isEmpty()) {
@@ -91,6 +99,7 @@ public class TrainerController {
 
 	// create
 	@PostMapping
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Trainer> add(@RequestBody Trainer t) {
 		t = trainerService.create(t);
 		if (t == null)
@@ -100,6 +109,7 @@ public class TrainerController {
 
 	// update
 	@PutMapping("{id}")
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Trainer> update(@RequestBody Trainer t) {
 		t = trainerService.update(t);
 		if (t == null)
@@ -109,6 +119,7 @@ public class TrainerController {
 
 	// delete
 	@DeleteMapping(value = "{id}")
+	@PreAuthorize("isAuthenticated() and hasRole('SVP of Technology')")
 	public ResponseEntity<Trainer> delete(@PathVariable int id) {
 		if (trainerService.findById(id) == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
